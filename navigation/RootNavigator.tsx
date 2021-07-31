@@ -1,16 +1,18 @@
 import React from "react";
-import { useSupabase } from "use-supabase";
-import { AuthNavigator } from "./AuthNavigator";
+// import { useSupabase } from "use-supabase";
+// import { AuthNavigator } from "./AuthNavigator";
 import { MainNavigator } from "./MainNavigator";
 
 const RootNavigator = () => {
-  const supabase = useSupabase();
+  return <MainNavigator />;
 
-  if (supabase.auth.session()) {
-    return <MainNavigator />;
-  }
+  // const supabase = useSupabase();
 
-  return <AuthNavigator />;
+  // if (supabase.auth.session()) {
+  //   return <MainNavigator />;
+  // }
+
+  // return <AuthNavigator />;
 };
 
 export default RootNavigator;
