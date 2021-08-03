@@ -11,16 +11,23 @@ import navigationService, {
   mainRoutes,
 } from "./NavigationService";
 import DrawerComponent from "../components/Drawer";
+import Button from "../components/common/Button";
+import useBountyPresenter from "./bountyPresenter";
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
 const Drawer = createDrawerNavigator<MainNavigatorParamList>();
 
 export const MainNavigator: FC = observer(() => {
+  const { createBountyPress } = useBountyPresenter();
+
   const MainStack: FC = () => {
     return (
       <Stack.Navigator
         screenOptions={{
           headerLeft: () => <MenuButton />,
+          headerRight: () => (
+            <Button onPress={createBountyPress}>Create Bounty</Button>
+          ),
         }}
       >
         <Stack.Screen name={mainRoutes.Dashboard} component={Dashboard} />

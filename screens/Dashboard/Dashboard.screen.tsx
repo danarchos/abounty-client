@@ -1,13 +1,14 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import SignOutButton from "../../components/SignOutButton";
 import {
   MainNavigatorParamList,
   mainRoutes,
 } from "../../navigation/NavigationService";
-import axios from "axios";
+import useBountyPresenter from "../../navigation/bountyPresenter";
+import { useBountyStore } from "../../stores/BountyStore/BountyStore";
 
 export type DashboardRoutingProps = StackScreenProps<
   MainNavigatorParamList,
@@ -16,38 +17,20 @@ export type DashboardRoutingProps = StackScreenProps<
 
 interface IDashboardScreenProps extends DashboardRoutingProps {}
 
-const Dashboard: FC<IDashboardScreenProps> = ({ navigation }) => {
-  const [data, setData] = useState<any[] | null>(null);
-  const [node, setNode] = useState<any>(null);
-
-  const getThis = async () => {
-    const response = await axios.get(`http://localhost:4000/bounties`);
-    setData(response?.data);
-    console.log({ response });
-  };
-
-  const generateBountyInvoice = async () => {
-    const response = await axios.post(
-      `http://localhost:4000/create-bounty-invoice`,
-      {
-        amount: 20,
-        user: "",
-      }
-    );
-    setData(response?.data);
-    console.log({ response });
-  };
+const Dashboard: FC<IDashboardScreenProps> = () => {
+  const { getAllBounties, generateBountyInvoice } = useBountyPresenter();
+  const { allBounties } = useBountyStore();
 
   useEffect(() => {
-    getThis();
+    getAllBounties();
   }, []);
 
-  if (!data) return null;
+  if (!allBounties) return null;
 
   return (
     <View style={{ padding: 10 }}>
-      {data?.map((item) => (
-        <View key={item.id} style={styles.bountyContainer}>
+      {allBounties?.map((item) => (
+        <View key={item.author} style={styles.bountyContainer}>
           <Text>{item.subject}</Text>
           <Button
             title="Pay Bounty"

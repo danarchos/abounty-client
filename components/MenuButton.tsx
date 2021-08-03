@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import Button from "./common/Button";
 
 type TouchableOpacityProps = React.ComponentProps<typeof TouchableOpacity>;
 
