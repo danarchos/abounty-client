@@ -2,7 +2,7 @@ import { getRootContainer } from "../config/ioc/root";
 import { useClassStore } from "../utils/useClassStore";
 
 import { inject, injectable, postConstruct } from "inversify";
-import { observable, action, makeAutoObservable } from "mobx";
+import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import AuthStore from "../stores/AuthStore/AuthStore";
 import BountyStore from "../stores/BountyStore/BountyStore";
 
@@ -14,15 +14,21 @@ class BountyPresenter {
   @inject(BountyStore) private bountyStore!: BountyStore;
 
   @observable error: string | null = null;
+  @observable invoiceQR: {
+    bountyId: string;
+    payreq: string;
+    hash: string;
+    amount: number;
+  } | null = null;
 
-  @action public generateBountyInvoice = async () => {
-    // const response = await axios.post(
-    //   `http://localhost:4000/create-bounty-invoice`,
-    //   {
-    //     amount: 20,
-    //     user: "",
-    //   }
-    // );
+  @action public generateBountyInvoice = async (bountyId: string) => {
+    const response = await this.bountyStore.createInvoice();
+    if (response) {
+      console.log({ response });
+      runInAction(() => {
+        this.invoiceQR = { ...response.data, bountyId };
+      });
+    }
   };
 
   @action public getAllBounties = async () => {

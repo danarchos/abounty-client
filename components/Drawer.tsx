@@ -10,7 +10,7 @@ import SignOutButton from "./SignOutButton";
 const Drawer: FC<DrawerContentComponentProps> = ({ state, navigation }) => {
   return (
     <View>
-      {MenuOptions.map(({ name, link, icon }) => {
+      {/* {MenuOptions.map(({ name, link, icon }) => {
         // TODO: better styling
         return (
           <Link
@@ -24,7 +24,7 @@ const Drawer: FC<DrawerContentComponentProps> = ({ state, navigation }) => {
             </View>
           </Link>
         );
-      })}
+      })} */}
       <SignOutButton />
     </View>
   );

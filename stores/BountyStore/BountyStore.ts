@@ -1,11 +1,10 @@
 import { injectable, postConstruct } from "inversify";
-import { observable, action, makeAutoObservable } from "mobx";
+import { observable, action, makeAutoObservable, runInAction } from "mobx";
 
 import { useClassStore } from "../../utils/useClassStore";
 import { getRootContainer } from "../../config/ioc/root";
 import API from "../../functions/gateway/API";
 import { Bounty } from "../../model/types";
-import axios from "axios";
 
 @injectable()
 class BountyStore {
@@ -14,8 +13,13 @@ class BountyStore {
   }
   @observable allBounties: Bounty[] = [];
 
+  @action public createInvoice = async () => {
+    const response = await API.createInvoice();
+    return response;
+  };
+
   @action public getAllBounties = async () => {
-    const response = await axios.get(`http://localhost:4000/bounties`);
+    const response = await API.getAllBounties();
     this.allBounties = response?.data;
     return response;
   };
@@ -24,21 +28,24 @@ class BountyStore {
     const response: any = await API.createBounty({
       author: "@author",
       subject: "Test subject",
-      heads: [
+      description: "Test desc",
+      speakers: [
         {
           username: "@testUser",
-          accepted: false,
+          confirmed: false,
         },
         {
           username: "@testUser2",
-          accepted: false,
+          confirmed: false,
         },
       ],
       tags: ["test"],
+      active: false,
     });
 
-    if (response?.success) {
-      this.allBounties = response?.bounties;
+    if (response) {
+      // optimise this to get back all bounties in one go
+      this.getAllBounties();
     }
     return response;
   };

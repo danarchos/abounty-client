@@ -2,6 +2,8 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
+import QRCode from "react-qr-code";
+
 import SignOutButton from "../../components/SignOutButton";
 import {
   MainNavigatorParamList,
@@ -18,7 +20,8 @@ export type DashboardRoutingProps = StackScreenProps<
 interface IDashboardScreenProps extends DashboardRoutingProps {}
 
 const Dashboard: FC<IDashboardScreenProps> = () => {
-  const { getAllBounties, generateBountyInvoice } = useBountyPresenter();
+  const { getAllBounties, generateBountyInvoice, invoiceQR } =
+    useBountyPresenter();
   const { allBounties } = useBountyStore();
 
   useEffect(() => {
@@ -30,12 +33,18 @@ const Dashboard: FC<IDashboardScreenProps> = () => {
   return (
     <View style={{ padding: 10 }}>
       {allBounties?.map((item) => (
-        <View key={item.author} style={styles.bountyContainer}>
-          <Text>{item.subject}</Text>
-          <Button
-            title="Pay Bounty"
-            onPress={() => generateBountyInvoice()}
-          ></Button>
+        <View key={item.id} style={styles.bountyContainer}>
+          <View style={styles.header}>
+            <Text>{item.subject}</Text>
+            <Button
+              title="Pay Bounty"
+              onPress={() => generateBountyInvoice(item.id)}
+            ></Button>
+          </View>
+          <Text style={{ paddingBottom: 50 }}>Current Bounty amount:</Text>
+          {invoiceQR && invoiceQR.bountyId === item.id && (
+            <QRCode value={invoiceQR.payreq} />
+          )}
         </View>
       ))}
       {/* <SignOutButton /> */}
@@ -46,17 +55,15 @@ const Dashboard: FC<IDashboardScreenProps> = () => {
 export default observer(Dashboard);
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "pink",
-    padding: 40,
+  bountyContainer: {
+    borderWidth: 1,
+    padding: 20,
   },
   pageContainer: {
     marginHorizontal: 45,
     marginVertical: 20,
   },
-  bountyContainer: {
-    borderWidth: 1,
-    padding: 20,
+  header: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
