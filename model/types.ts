@@ -1,6 +1,6 @@
 export interface Bounty {
   subject: string;
-  author: string;
+  userId: string;
   id: string;
   speakers: { username: string; confirmed: boolean }[];
   description: string;

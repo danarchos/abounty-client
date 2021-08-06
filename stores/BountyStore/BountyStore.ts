@@ -13,8 +13,8 @@ class BountyStore {
   }
   @observable allBounties: Bounty[] = [];
 
-  @action public createInvoice = async () => {
-    const response = await API.createInvoice();
+  @action public createInvoice = async (bountyId: string) => {
+    const response = await API.createInvoice(bountyId);
     return response;
   };
 
@@ -26,7 +26,7 @@ class BountyStore {
 
   @action public createBounty = async () => {
     const response: any = await API.createBounty({
-      author: "@author",
+      userId: "123e4567-e89b-12d3-a456-426614174000",
       subject: "Test subject",
       description: "Test desc",
       speakers: [

@@ -22,7 +22,7 @@ class BountyPresenter {
   } | null = null;
 
   @action public generateBountyInvoice = async (bountyId: string) => {
-    const response = await this.bountyStore.createInvoice();
+    const response = await this.bountyStore.createInvoice(bountyId);
     if (response) {
       console.log({ response });
       runInAction(() => {
