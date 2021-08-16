@@ -9,7 +9,7 @@ const configs = {
       slug: "supa-ln",
       version: "0.0.1",
       orientation: "portrait",
-      icon: "./assets/image/icon.png",
+      icon: "",
       splash: {
         image: "./assets/image/splash.png",
         resizeMode: "contain",
@@ -40,7 +40,7 @@ const configs = {
       slug: "supa-ln",
       version: "0.0.1",
       orientation: "portrait",
-      icon: "./assets/image/icon.png",
+      icon: "",
       splash: {
         image: "./assets/image/splash.png",
         resizeMode: "contain",
