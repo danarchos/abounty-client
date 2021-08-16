@@ -56,6 +56,8 @@ export const signIn = async (email: string, password: string) => {
     provider: "twitter",
   });
 
+  console.log({ user, session, error });
+
   return { user, session, error };
 };
 
