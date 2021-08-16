@@ -1,5 +1,5 @@
-import { supabase } from '../../config/SupabaseInit';
-import { definitions } from '../../types/supabase';
+import { supabase } from "../../config/SupabaseInit";
+import { definitions } from "../../types/supabase";
 
 /* ***
  --- USER ROUTES ---
@@ -10,13 +10,13 @@ export const fetchCurrentUser = async () => {
   const { id } = currentUser ?? {};
 
   const { data: user, error } = await supabase
-    .from<definitions['users']>('users')
+    .from<definitions["users"]>("users")
     .select(
       `organizations (
       name
       ), belongs_to_organization, id, email, name`
     )
-    .eq('id', id);
+    .eq("id", id);
 
   if (error) return null;
 
@@ -25,22 +25,22 @@ export const fetchCurrentUser = async () => {
 
 // TODO: Add other fields that can be updated on a user to this method
 export const updateCurrentUser = async (name: string | null = null) => {
-  console.log('--- SupabaseGateway: Performing updateCurrentUser ---');
+  console.log("--- SupabaseGateway: Performing updateCurrentUser ---");
   const user = supabase.auth.user();
   const { id } = user ?? {};
 
   if (!name) return;
 
   const { data, error } = await supabase
-    .from('users')
+    .from("users")
     .update({ name })
-    .eq('id', id);
+    .eq("id", id);
 
   return { data, error };
 };
 
 export const signUp = async (email: string, password: string) => {
-  console.log('--- SupabaseGateway: Performing Sign Up ---');
+  console.log("--- SupabaseGateway: Performing Sign Up ---");
   const { user, session, error } = await supabase.auth.signUp({
     email,
     password,
@@ -50,19 +50,18 @@ export const signUp = async (email: string, password: string) => {
 };
 
 export const signIn = async (email: string, password: string) => {
-  console.log('--- SupabaseGateway: Performing Sign In ---');
+  console.log("--- SupabaseGateway: Performing Sign In ---");
+
   const { user, session, error } = await supabase.auth.signIn({
-    email,
-    password,
+    provider: "twitter",
   });
 
   return { user, session, error };
 };
 
 export const signOut = async () => {
-  console.log('--- SupabaseGateway: Performing Sign Out ---');
+  console.log("--- SupabaseGateway: Performing Sign Out ---");
   const { error } = await supabase.auth.signOut();
 
   return error;
 };
-
