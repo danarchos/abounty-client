@@ -16,6 +16,9 @@ class AuthPresenter {
   @observable password: string = "";
   @observable loginError: boolean = false;
 
+  @action public setCurrentUser = (user: any) =>
+    this.authStore.setCurrentUser(user);
+
   @action public setEmail = (value: string) => {
     this.email = value;
   };
@@ -39,6 +42,8 @@ class AuthPresenter {
       this.setLoginError(true);
     }
   };
+
+  performSignOut = async () => await this.authStore.signOut();
 
   performSignUp = async () => {
     this.setSignUpError(false);

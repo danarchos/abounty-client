@@ -4,8 +4,6 @@ import { AuthNavigator } from "./AuthNavigator";
 import { MainNavigator } from "./MainNavigator";
 
 const RootNavigator = () => {
-  // return <MainNavigator />;
-
   const supabase = useSupabase();
 
   if (supabase.auth.session()) {

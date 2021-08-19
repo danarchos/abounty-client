@@ -1,7 +1,7 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import QRCode from "react-qr-code";
 
 import SignOutButton from "../../components/SignOutButton";
@@ -11,6 +11,7 @@ import {
 } from "../../navigation/NavigationService";
 import useBountyPresenter from "../../navigation/bountyPresenter";
 import { useBountyStore } from "../../stores/BountyStore/BountyStore";
+import Button from "../../components/common/Button";
 
 export type DashboardRoutingProps = StackScreenProps<
   MainNavigatorParamList,
@@ -36,10 +37,9 @@ const Dashboard: FC<IDashboardScreenProps> = () => {
         <View key={item.id} style={styles.bountyContainer}>
           <View style={styles.header}>
             <Text>{item.subject}</Text>
-            <Button
-              title="Pay Bounty"
-              onPress={() => generateBountyInvoice(item.id)}
-            ></Button>
+            <Button onPress={() => generateBountyInvoice(item.id)}>
+              Pay Bounty
+            </Button>
           </View>
           <Text style={{ paddingBottom: 50 }}>Current Bounty amount:</Text>
           {invoiceQR && invoiceQR.bountyId === item.id && (

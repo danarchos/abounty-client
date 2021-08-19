@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Dashboard from "../screens/Dashboard/Dashboard.screen";
 import { observer } from "mobx-react-lite";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import MenuButton from "../components/MenuButton";
 import navigationService, {
   mainLinking,
@@ -13,12 +13,23 @@ import navigationService, {
 import DrawerComponent from "../components/Drawer";
 import Button from "../components/common/Button";
 import useBountyPresenter from "./bountyPresenter";
+import { useSupabase } from "use-supabase";
+import { View } from "react-native";
+import useAuthPresenter from "../screens/authPresenter";
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
 const Drawer = createDrawerNavigator<MainNavigatorParamList>();
 
 export const MainNavigator: FC = observer(() => {
+  const { auth } = useSupabase();
   const { createBountyPress } = useBountyPresenter();
+  const { performSignOut, setCurrentUser } = useAuthPresenter();
+
+  useEffect(() => {
+    console.log("called ");
+    setCurrentUser(auth.user());
+    console.log({ currentUser: auth.user() });
+  }, [auth]);
 
   const MainStack: FC = () => {
     return (
@@ -26,7 +37,12 @@ export const MainNavigator: FC = observer(() => {
         screenOptions={{
           headerLeft: () => <MenuButton />,
           headerRight: () => (
-            <Button onPress={createBountyPress}>Create Bounty</Button>
+            <View style={{ display: "flex", flexDirection: "row" }}>
+              <Button onPress={createBountyPress}>Create Bounty</Button>
+              <Button style={{ marginHorizontal: 20 }} onPress={performSignOut}>
+                Log out
+              </Button>
+            </View>
           ),
         }}
       >

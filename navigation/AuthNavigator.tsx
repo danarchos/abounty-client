@@ -24,7 +24,6 @@ export const AuthNavigator = observer(() => {
     >
       <Stack.Navigator>
         <Stack.Screen name={authRoutes.Login} component={LoginScreen} />
-        <Stack.Screen name={authRoutes.SignUp} component={SignUpScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

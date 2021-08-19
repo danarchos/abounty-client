@@ -5,13 +5,18 @@ import { Bounty } from "../../model/types";
 class API {
   private apiUrl = Constants.manifest?.extra?.apiBaseUrl;
 
-  public async createInvoice(bountyId: string) {
+  public async createInvoice(
+    bountyId: string,
+    userId: string,
+    username: string
+  ) {
     const response = await axios.post(
       `http://localhost:4000/create-bounty-invoice`,
       {
         amount: 50,
-        userId: "123e4567-e89b-12d3-a456-426614174000",
+        userId,
         bountyId,
+        username,
       }
     );
 

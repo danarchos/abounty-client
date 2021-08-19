@@ -1,26 +1,37 @@
-import { injectable, postConstruct } from "inversify";
+import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
 
 import { useClassStore } from "../../utils/useClassStore";
 import { getRootContainer } from "../../config/ioc/root";
 import API from "../../functions/gateway/API";
 import { Bounty } from "../../model/types";
+import AuthStore from "../AuthStore/AuthStore";
 
 @injectable()
 class BountyStore {
+  @inject(AuthStore) private authStore!: AuthStore;
+
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
   @observable allBounties: Bounty[] = [];
 
   @action public createInvoice = async (bountyId: string) => {
-    const response = await API.createInvoice(bountyId);
+    if (!this.authStore.currentUser) return;
+    const response = await API.createInvoice(
+      bountyId,
+      this.authStore.currentUser.id,
+      this.authStore.currentUser.user_metadata.user_name
+    );
     return response;
   };
 
   @action public getAllBounties = async () => {
+    console.log("called get all bounties");
     const response = await API.getAllBounties();
+
     this.allBounties = response?.data;
+    console.log({ response });
     return response;
   };
 

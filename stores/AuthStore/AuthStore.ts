@@ -5,8 +5,8 @@ import {
   updateCurrentUser,
   fetchCurrentUser,
 } from "../../functions/gateway/SupabaseGateway";
-import { injectable } from "inversify";
-import { observable, action } from "mobx";
+import { injectable, postConstruct } from "inversify";
+import { observable, action, makeAutoObservable } from "mobx";
 import { persist } from "mobx-persist";
 
 import navigationService, {
@@ -24,13 +24,22 @@ export type AuthData = {
 
 @injectable()
 class AuthStore {
+  @postConstruct() onInit() {
+    makeAutoObservable(this);
+  }
+
   @persist @observable AuthData: AuthData = {
     user: null,
     session: null,
   };
+  @persist @observable currentUser: any = null;
   @observable signUpError: boolean = false;
   @observable loginError: boolean = false;
   @observable hasOnboarded: boolean = false;
+
+  @action public setCurrentUser = (user: any) => {
+    this.currentUser = user;
+  };
 
   @action public setAuthData = (value: AuthData) => {
     this.AuthData = value;

@@ -13,35 +13,18 @@ const LoginScreen = observer(() => {
     useAuthPresenter();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>login</Text>
-      <Input
-        label="Email"
-        value={email}
-        onChangeText={(value) => setEmail(value)}
-      />
-      <Input
-        label="Password"
-        value={password}
-        onChangeText={(value) => setPassword(value)}
-        secureTextEntry
-      />
       <Button
         onPress={async () => {
           await performSignIn();
         }}
       >
-        <Text>Submit</Text>
+        <Text>Login with twitter</Text>
       </Button>
       {loginError && (
         <Text style={styles.errorText}>
           "There was an error creating your account, please try again"
         </Text>
       )}
-      <Link to={`/${authLinks.SignUp}`}>
-        <Button>
-          <Text>Sign Up</Text>
-        </Button>
-      </Link>
     </View>
   );
 });
