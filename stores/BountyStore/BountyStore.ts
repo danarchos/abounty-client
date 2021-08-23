@@ -1,10 +1,9 @@
 import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
-
+import { Bounty } from "../../model/types";
 import { useClassStore } from "../../utils/useClassStore";
 import { getRootContainer } from "../../config/ioc/root";
 import API from "../../functions/gateway/API";
-import { Bounty } from "../../model/types";
 import AuthStore from "../AuthStore/AuthStore";
 
 @injectable()
@@ -35,23 +34,19 @@ class BountyStore {
     return response;
   };
 
-  @action public createBounty = async () => {
+  @action public createBounty = async ({
+    description,
+    subject,
+    speakers,
+    tags,
+    userId,
+  }: Bounty) => {
     const response: any = await API.createBounty({
-      userId: "123e4567-e89b-12d3-a456-426614174000",
-      subject: "Test subject",
-      description: "Test desc",
-      speakers: [
-        {
-          username: "@testUser",
-          confirmed: false,
-        },
-        {
-          username: "@testUser2",
-          confirmed: false,
-        },
-      ],
-      tags: ["test"],
-      active: false,
+      userId,
+      subject,
+      description,
+      speakers,
+      tags,
     });
 
     if (response) {

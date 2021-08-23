@@ -13,6 +13,7 @@ import {
 import useBountyPresenter from "../../navigation/bountyPresenter";
 import { useBountyStore } from "../../stores/BountyStore/BountyStore";
 import Button from "../../components/common/Button";
+import useCreateBountyPresenter from "./createBountyPresenter";
 
 export type DashboardRoutingProps = StackScreenProps<
   MainNavigatorParamList,
@@ -22,9 +23,28 @@ export type DashboardRoutingProps = StackScreenProps<
 interface IDashboardScreenProps extends DashboardRoutingProps {}
 
 const CreateBounty: FC<IDashboardScreenProps> = () => {
-  const { createBountySubmit } = useBountyPresenter();
+  const { createBountySubmit } = useCreateBountyPresenter();
   return (
-    <View style={{ padding: 10 }}>
+    <View
+      style={{
+        padding: 10,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <TextInput
+        style={{ width: 200, marginBottom: 10 }}
+        label="Subject"
+        value={""}
+        onChangeText={() => {}}
+      />
+      <TextInput
+        style={{ width: 200, marginBottom: 10 }}
+        label="Description"
+        value={""}
+        onChangeText={() => {}}
+      />
       <Button onPress={createBountySubmit}>Create Bounty</Button>
     </View>
   );
