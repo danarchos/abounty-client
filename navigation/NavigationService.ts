@@ -9,11 +9,8 @@ export enum authRoutes {
 
 export enum mainRoutes {
   Main = "Main",
-  UserOnboard = "UserOnboard",
   Dashboard = "Dashboard",
-  AppView = "AppView",
-  TestView = "TestView",
-  Settings = "Settings",
+  CreateBounty = "CreateBounty",
 }
 
 export const authLinks = {
@@ -23,11 +20,8 @@ export const authLinks = {
 
 export const mainLinks = {
   [mainRoutes.Dashboard]: "dashboard",
-  [mainRoutes.Settings]: "settings",
+  [mainRoutes.CreateBounty]: "create-bounty",
   [mainRoutes.Main]: "",
-  [mainRoutes.UserOnboard]: "onboard",
-  [mainRoutes.AppView]: "app/:id",
-  [mainRoutes.TestView]: "test/:id",
 };
 
 export type AuthNavigatorParamList = {
@@ -37,10 +31,8 @@ export type AuthNavigatorParamList = {
 
 export type MainNavigatorParamList = {
   [mainRoutes.Main]: undefined;
-  [mainRoutes.UserOnboard]: undefined;
   [mainRoutes.Dashboard]: undefined;
-  [mainRoutes.AppView]: { id: string };
-  [mainRoutes.TestView]: { id: string };
+  [mainRoutes.CreateBounty]: undefined;
 };
 
 /* Web Linking */

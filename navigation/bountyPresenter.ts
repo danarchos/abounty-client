@@ -39,6 +39,11 @@ class BountyPresenter {
     const response = await this.bountyStore.createBounty();
     if (!response.success) this.error = response?.error ?? null;
   };
+
+  @action public createBountySubmit = async () => {
+    const response = await this.bountyStore.createBounty();
+    if (!response.success) this.error = response?.error ?? null;
+  };
 }
 
 const useBountyPresenter = () =>
