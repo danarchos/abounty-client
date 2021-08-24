@@ -17,6 +17,7 @@ import useBountyPresenter from "./bountyPresenter";
 import { useSupabase } from "use-supabase";
 import { View } from "react-native";
 import useAuthPresenter from "../screens/authPresenter";
+import { useBountyStore } from "../stores/BountyStore/BountyStore";
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
 const Drawer = createDrawerNavigator<MainNavigatorParamList>();
@@ -24,11 +25,12 @@ const Drawer = createDrawerNavigator<MainNavigatorParamList>();
 export const MainNavigator: FC = observer(() => {
   const { auth } = useSupabase();
 
-  const { createBountyPress } = useBountyPresenter();
+  const { listenForPayments } = useBountyStore();
   const { performSignOut, setCurrentUser } = useAuthPresenter();
 
   useEffect(() => {
     setCurrentUser(auth.user());
+    listenForPayments();
     console.log({ currentUser: auth.user() });
   }, [auth]);
 

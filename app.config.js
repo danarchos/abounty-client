@@ -29,6 +29,7 @@ const configs = {
         test: process.env.TEST,
         supabaseUrl: process.env.SUPABASE_URL,
         supabaseKey: process.env.SUPABASE_KEY,
+        websocketUrl: process.env.WEBSOCKET_URL,
         stage,
         apiBaseUrl: "http://localhost:4000",
       },
@@ -59,6 +60,7 @@ const configs = {
       extra: {
         supabaseUrl: process.env.SUPABASE_URL,
         supabaseKey: process.env.SUPABASE_KEY,
+        websocketUrl: process.env.WEBSOCKET_URL,
         stage,
         apiBaseUrl: "http://localhost:4000",
       },

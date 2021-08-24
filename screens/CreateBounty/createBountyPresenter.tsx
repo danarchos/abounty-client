@@ -1,6 +1,9 @@
 import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import { getRootContainer } from "../../config/ioc/root";
+import navigationService, {
+  mainRoutes,
+} from "../../navigation/NavigationService";
 import BountyStore from "../../stores/BountyStore/BountyStore";
 import { useClassStore } from "../../utils/useClassStore";
 
@@ -27,7 +30,9 @@ class BountyPresenter {
       speakers: this.speakers,
       userId: "123e4567-e89b-12d3-a456-426614174000",
     });
-    if (!response.success) this.error = response?.error ?? null;
+    if (response) {
+      navigationService.navigate(mainRoutes.Dashboard);
+    }
   };
 }
 

@@ -4,6 +4,11 @@ import { Bounty } from "../../model/types";
 
 class API {
   private apiUrl = Constants.manifest?.extra?.apiBaseUrl;
+  private websocketUrl = Constants.manifest?.extra?.websocketUrl;
+
+  public getEventsSocket() {
+    return new WebSocket(this.websocketUrl);
+  }
 
   public async createInvoice(
     bountyId: string,

@@ -41,13 +41,14 @@ const Dashboard: FC<IDashboardScreenProps> = () => {
               Pay Bounty
             </Button>
           </View>
-          <Text style={{ paddingBottom: 50 }}>Current Bounty amount:</Text>
+          <Text style={{ paddingBottom: 50 }}>
+            Current Bounty amount: {item.balance}
+          </Text>
           {invoiceQR && invoiceQR.bountyId === item.id && (
             <QRCode value={invoiceQR.payreq} />
           )}
         </View>
       ))}
-      {/* <SignOutButton /> */}
     </View>
   );
 };

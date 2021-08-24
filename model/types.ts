@@ -7,4 +7,5 @@ export interface Bounty {
   created?: Date;
   tags: string[];
   active?: boolean;
+  balance: number;
 }

@@ -15,6 +15,13 @@ class BountyStore {
   }
   @observable allBounties: Bounty[] = [];
 
+  @action public listenForPayments = async () => {
+    const ws = API.getEventsSocket();
+    ws.addEventListener("message", (event) =>
+      console.log("recieved payment", JSON.parse(event.data))
+    );
+  };
+
   @action public createInvoice = async (bountyId: string) => {
     if (!this.authStore.currentUser) return;
     const response = await API.createInvoice(
