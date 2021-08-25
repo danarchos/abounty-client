@@ -5,7 +5,7 @@ import { Text, View, StyleSheet } from "react-native";
 import QRCode from "react-qr-code";
 
 import SignOutButton from "../../components/SignOutButton";
-import {
+import navigationService, {
   MainNavigatorParamList,
   mainRoutes,
 } from "../../navigation/NavigationService";
@@ -37,8 +37,14 @@ const Dashboard: FC<IDashboardScreenProps> = () => {
         <View key={item.id} style={styles.bountyContainer}>
           <View style={styles.header}>
             <Text>{item.subject}</Text>
-            <Button onPress={() => generateBountyInvoice(item.id)}>
-              Pay Bounty
+            <Button
+              onPress={() =>
+                navigationService.navigate(mainRoutes.ViewBounty, {
+                  id: item.id,
+                })
+              }
+            >
+              More
             </Button>
           </View>
           <Text style={{ paddingBottom: 50 }}>

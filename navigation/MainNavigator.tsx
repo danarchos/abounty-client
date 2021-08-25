@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Dashboard from "../screens/Dashboard/Dashboard.screen";
 import CreateBounty from "../screens/CreateBounty/CreateBounty.screen";
+
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
 import MenuButton from "../components/MenuButton";
@@ -18,6 +19,8 @@ import { useSupabase } from "use-supabase";
 import { View } from "react-native";
 import useAuthPresenter from "../screens/authPresenter";
 import { useBountyStore } from "../stores/BountyStore/BountyStore";
+import ViewBounty from "../screens/ViewBounty/ViewBounty";
+import * as Linking from "expo-linking";
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
 const Drawer = createDrawerNavigator<MainNavigatorParamList>();
@@ -28,10 +31,15 @@ export const MainNavigator: FC = observer(() => {
   const { listenForPayments } = useBountyStore();
   const { performSignOut, setCurrentUser } = useAuthPresenter();
 
+  const getUrl = async () => {
+    const url = await Linking.getInitialURL();
+    console.log({ url });
+  };
+
   useEffect(() => {
     setCurrentUser(auth.user());
     listenForPayments();
-    console.log({ currentUser: auth.user() });
+    getUrl();
   }, [auth]);
 
   const MainStack: FC = () => {
@@ -56,6 +64,7 @@ export const MainNavigator: FC = observer(() => {
         }}
       >
         <Stack.Screen name={mainRoutes.Dashboard} component={Dashboard} />
+        <Stack.Screen name={mainRoutes.ViewBounty} component={ViewBounty} />
         <Stack.Screen name={mainRoutes.CreateBounty} component={CreateBounty} />
       </Stack.Navigator>
     );

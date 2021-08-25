@@ -10,6 +10,7 @@ export enum authRoutes {
 export enum mainRoutes {
   Main = "Main",
   Dashboard = "Dashboard",
+  ViewBounty = "ViewBounty",
   CreateBounty = "CreateBounty",
 }
 
@@ -20,6 +21,7 @@ export const authLinks = {
 
 export const mainLinks = {
   [mainRoutes.Dashboard]: "dashboard",
+  [mainRoutes.ViewBounty]: "bounty/:id",
   [mainRoutes.CreateBounty]: "create-bounty",
   [mainRoutes.Main]: "",
 };
@@ -31,6 +33,7 @@ export type AuthNavigatorParamList = {
 
 export type MainNavigatorParamList = {
   [mainRoutes.Main]: undefined;
+  [mainRoutes.ViewBounty]: { id: string };
   [mainRoutes.Dashboard]: undefined;
   [mainRoutes.CreateBounty]: undefined;
 };
@@ -40,7 +43,20 @@ export const mainLinking = {
   prefixes: [],
   config: {
     screens: {
-      ...mainLinks,
+      Main: {
+        path: "",
+        screens: {
+          Dashboard: {
+            path: "/dashboard",
+          },
+          CreateBounty: {
+            path: "/create-bounty",
+          },
+          ViewBounty: {
+            path: "bounty/:id",
+          },
+        },
+      },
     },
   },
 };
