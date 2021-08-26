@@ -21,6 +21,7 @@ import useAuthPresenter from "../screens/authPresenter";
 import { useBountyStore } from "../stores/BountyStore/BountyStore";
 import ViewBounty from "../screens/ViewBounty/ViewBounty";
 import * as Linking from "expo-linking";
+import LogoButton from "../components/LogoButton";
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
 const Drawer = createDrawerNavigator<MainNavigatorParamList>();
@@ -33,7 +34,6 @@ export const MainNavigator: FC = observer(() => {
 
   const getUrl = async () => {
     const url = await Linking.getInitialURL();
-    console.log({ url });
   };
 
   useEffect(() => {
@@ -46,7 +46,9 @@ export const MainNavigator: FC = observer(() => {
     return (
       <Stack.Navigator
         screenOptions={{
-          headerLeft: () => <MenuButton />,
+          headerLeft: () => <LogoButton />,
+          headerTitle: "",
+          headerStyle: { backgroundColor: "transparent", borderBottomWidth: 0 },
           headerRight: () => (
             <View style={{ display: "flex", flexDirection: "row" }}>
               <Button

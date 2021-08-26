@@ -1,25 +1,32 @@
 import { StackScreenProps } from "@react-navigation/stack";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { RouteProp } from "@react-navigation/native";
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import QRCode from "react-qr-code";
-
 import {
   MainNavigatorParamList,
   mainRoutes,
 } from "../../navigation/NavigationService";
 import Button from "../../components/common/Button";
-import useCreateBountyPresenter from "./viewBountyPresenter";
+import useBountyPresenter from "../../navigation/bountyPresenter";
+import useViewBountyPresenter from "./viewBountyPresenter";
 
-export type DashboardRoutingProps = StackScreenProps<
-  MainNavigatorParamList,
-  mainRoutes.Dashboard
->;
+type IViewBountyScreenProps = {
+  route: RouteProp<MainNavigatorParamList, mainRoutes.ViewBounty>;
+};
 
-interface IDashboardScreenProps extends DashboardRoutingProps {}
+const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
+  useEffect(() => {
+    initialiseViewBounty(route.params.id);
+    console.log("called");
+  }, []);
 
-const ViewBounty: FC<IDashboardScreenProps> = () => {
-  const { createBountySubmit } = useCreateBountyPresenter();
+  const { generateBountyInvoice, invoiceQR } = useBountyPresenter();
+  const { initialiseViewBounty, description, subject, balance, speakers } =
+    useViewBountyPresenter();
+
   return (
     <View
       style={{
@@ -29,7 +36,13 @@ const ViewBounty: FC<IDashboardScreenProps> = () => {
         justifyContent: "center",
       }}
     >
-      <Button onPress={createBountySubmit}>Add Funds</Button>
+      <Text>{subject}</Text>
+      <Text>{description}</Text>
+      <Text>{balance}</Text>
+      <Button onPress={() => generateBountyInvoice(route.params.id)}>
+        Add Funds
+      </Button>
+      {invoiceQR && <QRCode value={invoiceQR.payreq} />}
     </View>
   );
 };

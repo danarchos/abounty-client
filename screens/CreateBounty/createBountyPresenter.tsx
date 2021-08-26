@@ -4,6 +4,7 @@ import { getRootContainer } from "../../config/ioc/root";
 import navigationService, {
   mainRoutes,
 } from "../../navigation/NavigationService";
+import AuthStore from "../../stores/AuthStore/AuthStore";
 import BountyStore from "../../stores/BountyStore/BountyStore";
 import { useClassStore } from "../../utils/useClassStore";
 
@@ -13,6 +14,7 @@ class BountyPresenter {
     makeAutoObservable(this);
   }
   @inject(BountyStore) private bountyStore!: BountyStore;
+  @inject(AuthStore) private authStore!: AuthStore;
   @observable error: string | null = null;
   @observable subject: string = "Subjay";
   @observable description: string = "Bountay";
@@ -23,12 +25,17 @@ class BountyPresenter {
   ];
 
   @action public createBountySubmit = async () => {
+    console.log({ user: this.authStore.currentUser });
     const response = await this.bountyStore.createBounty({
       subject: this.subject,
       description: this.description,
       tags: this.tags,
       speakers: this.speakers,
-      userId: "123e4567-e89b-12d3-a456-426614174000",
+      user: {
+        id: this.authStore.currentUser.id,
+        username:
+          this.authStore.currentUser.user_metadata.user_name.toLowerCase(),
+      },
     });
     if (response) {
       navigationService.navigate(mainRoutes.Dashboard);

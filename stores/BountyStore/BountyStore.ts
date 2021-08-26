@@ -33,12 +33,23 @@ class BountyStore {
   };
 
   @action public getAllBounties = async () => {
-    console.log("called get all bounties");
     const response = await API.getAllBounties();
 
     this.allBounties = response?.data;
-    console.log({ response });
     return response;
+  };
+
+  @action public getBounty = async (id: string) => {
+    const response = await API.getBounty(id);
+    return response?.data;
+  };
+
+  @action public listenToBounty = async () => {
+    // listen to the currently viewed  bounty
+  };
+
+  @action public removeListerForBounty = async () => {
+    // undo listen to the currently viewed  bounty
   };
 
   @action public createBounty = async ({
@@ -46,10 +57,10 @@ class BountyStore {
     subject,
     speakers,
     tags,
-    userId,
+    user,
   }: Bounty) => {
     const response: any = await API.createBounty({
-      userId,
+      user,
       subject,
       description,
       speakers,

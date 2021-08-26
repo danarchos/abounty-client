@@ -1,9 +1,7 @@
 import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import { getRootContainer } from "../../config/ioc/root";
-import navigationService, {
-  mainRoutes,
-} from "../../navigation/NavigationService";
+
 import BountyStore from "../../stores/BountyStore/BountyStore";
 import { useClassStore } from "../../utils/useClassStore";
 
@@ -13,30 +11,30 @@ class BountyPresenter {
     makeAutoObservable(this);
   }
   @inject(BountyStore) private bountyStore!: BountyStore;
-  @observable error: string | null = null;
-  @observable subject: string = "Subjay";
-  @observable description: string = "Bountay";
-  @observable tags: string[] = ["testing"];
-  @observable speakers: { username: string; confirmed: boolean }[] = [
-    { username: "dannyjmac", confirmed: false },
-    { username: "jackmallers", confirmed: false },
-  ];
+  @observable bountyId: string | null = null;
+  @observable balance: number | null = null;
+  @observable subject: string = "";
+  @observable description: string = "";
+  @observable speakers: { username: string; confirmed: boolean }[] = [];
+  @observable expiry: number | null = null;
 
-  @action public createBountySubmit = async () => {
-    const response = await this.bountyStore.createBounty({
-      subject: this.subject,
-      description: this.description,
-      tags: this.tags,
-      speakers: this.speakers,
-      userId: "123e4567-e89b-12d3-a456-426614174000",
-    });
-    if (response) {
-      navigationService.navigate(mainRoutes.Dashboard);
-    }
+  @action public initialiseViewBounty = async (bountyId: string) => {
+    const currentBounty = await this.bountyStore.getBounty(bountyId);
+
+    if (!currentBounty) return;
+
+    const { balance, expiry, speakers, subject, description } = currentBounty;
+
+    this.bountyId = bountyId;
+    this.balance = balance ?? null;
+    this.speakers = speakers;
+    this.subject = subject;
+    this.description = description;
+    this.expiry = expiry ?? null;
   };
 }
 
-const useCreateBountyPresenter = () =>
+const useViewBountyPresenter = () =>
   useClassStore<BountyPresenter>(getRootContainer().get(BountyPresenter));
 
-export default useCreateBountyPresenter;
+export default useViewBountyPresenter;

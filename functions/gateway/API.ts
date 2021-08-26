@@ -15,15 +15,12 @@ class API {
     userId: string,
     username: string
   ) {
-    const response = await axios.post(
-      `http://localhost:4000/create-bounty-invoice`,
-      {
-        amount: 50,
-        userId,
-        bountyId,
-        username,
-      }
-    );
+    const response = await axios.post(`${this.apiUrl}/create-bounty-invoice`, {
+      amount: 50,
+      userId,
+      bountyId,
+      username,
+    });
 
     return response;
   }
@@ -33,8 +30,13 @@ class API {
     return response;
   }
 
+  public async getBounty(id: string) {
+    const response = await axios.get(`${this.apiUrl}/bounty/${id}`);
+    return response;
+  }
+
   public async createBounty({
-    userId,
+    user,
     subject,
     speakers,
     tags,
@@ -47,7 +49,7 @@ class API {
       subject,
       speakers,
       tags,
-      userId: "123e4567-e89b-12d3-a456-426614174000",
+      user,
     });
     return response;
   }
