@@ -10,8 +10,6 @@ import {
   MainNavigatorParamList,
   mainRoutes,
 } from "../../navigation/NavigationService";
-import useBountyPresenter from "../../navigation/bountyPresenter";
-import { useBountyStore } from "../../stores/BountyStore/BountyStore";
 import Button from "../../components/common/Button";
 import useCreateBountyPresenter from "./createBountyPresenter";
 

@@ -18,9 +18,14 @@ type IViewBountyScreenProps = {
 };
 
 const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
+  const { listenForPayments, removeListener } = useViewBountyPresenter();
+
   useEffect(() => {
     initialiseViewBounty(route.params.id);
-    console.log("called");
+    listenForPayments(route.params.id);
+    return () => {
+      removeListener();
+    };
   }, []);
 
   const { generateBountyInvoice, invoiceQR } = useBountyPresenter();
@@ -36,9 +41,9 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
         justifyContent: "center",
       }}
     >
-      <Text>{subject}</Text>
-      <Text>{description}</Text>
-      <Text>{balance}</Text>
+      <Text>Subject: {subject}</Text>
+      <Text>Description: {description}</Text>
+      <Text>Balance: {balance}</Text>
       <Button onPress={() => generateBountyInvoice(route.params.id)}>
         Add Funds
       </Button>

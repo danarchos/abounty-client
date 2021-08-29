@@ -10,7 +10,7 @@ import navigationService, {
   mainRoutes,
 } from "../../navigation/NavigationService";
 import useBountyPresenter from "../../navigation/bountyPresenter";
-import { useBountyStore } from "../../stores/BountyStore/BountyStore";
+import { useDashboardStore } from "../../stores/DashboardStore/DashboardStore";
 import Button from "../../components/common/Button";
 
 export type DashboardRoutingProps = StackScreenProps<
@@ -23,7 +23,7 @@ interface IDashboardScreenProps extends DashboardRoutingProps {}
 const Dashboard: FC<IDashboardScreenProps> = () => {
   const { getAllBounties, generateBountyInvoice, invoiceQR } =
     useBountyPresenter();
-  const { allBounties } = useBountyStore();
+  const { allBounties } = useDashboardStore();
 
   useEffect(() => {
     getAllBounties();
@@ -50,9 +50,6 @@ const Dashboard: FC<IDashboardScreenProps> = () => {
           <Text style={{ paddingBottom: 50 }}>
             Current Bounty amount: {item.balance}
           </Text>
-          {invoiceQR && invoiceQR.bountyId === item.id && (
-            <QRCode value={invoiceQR.payreq} />
-          )}
         </View>
       ))}
     </View>

@@ -4,14 +4,14 @@ import { useClassStore } from "../utils/useClassStore";
 import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import AuthStore from "../stores/AuthStore/AuthStore";
-import BountyStore from "../stores/BountyStore/BountyStore";
+import DashboardStore from "../stores/DashboardStore/DashboardStore";
 
 @injectable()
 class BountyPresenter {
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
-  @inject(BountyStore) private bountyStore!: BountyStore;
+  @inject(DashboardStore) private dashboardStore!: DashboardStore;
 
   @observable error: string | null = null;
   @observable invoiceQR: {
@@ -22,16 +22,17 @@ class BountyPresenter {
   } | null = null;
 
   @action public generateBountyInvoice = async (bountyId: string) => {
-    const response = await this.bountyStore.createInvoice(bountyId);
+    const response = await this.dashboardStore.createInvoice(bountyId);
     if (response) {
       runInAction(() => {
         this.invoiceQR = { ...response.data, bountyId };
+        console.log({ response });
       });
     }
   };
 
   @action public getAllBounties = async () => {
-    await this.bountyStore.getAllBounties();
+    await this.dashboardStore.getAllBounties();
   };
 }
 

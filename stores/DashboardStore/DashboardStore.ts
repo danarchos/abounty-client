@@ -7,20 +7,13 @@ import API from "../../functions/gateway/API";
 import AuthStore from "../AuthStore/AuthStore";
 
 @injectable()
-class BountyStore {
+class DashboardStore {
   @inject(AuthStore) private authStore!: AuthStore;
 
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
   @observable allBounties: Bounty[] = [];
-
-  @action public listenForPayments = async () => {
-    const ws = API.getEventsSocket();
-    ws.addEventListener("message", (event) =>
-      console.log("recieved payment", JSON.parse(event.data))
-    );
-  };
 
   @action public createInvoice = async (bountyId: string) => {
     if (!this.authStore.currentUser) return;
@@ -75,7 +68,7 @@ class BountyStore {
   };
 }
 
-export const useBountyStore = () =>
-  useClassStore<BountyStore>(getRootContainer().get(BountyStore));
+export const useDashboardStore = () =>
+  useClassStore<DashboardStore>(getRootContainer().get(DashboardStore));
 
-export default BountyStore;
+export default DashboardStore;

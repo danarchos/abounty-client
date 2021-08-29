@@ -6,8 +6,8 @@ class API {
   private apiUrl = Constants.manifest?.extra?.apiBaseUrl;
   private websocketUrl = Constants.manifest?.extra?.websocketUrl;
 
-  public getEventsSocket() {
-    return new WebSocket(this.websocketUrl);
+  public getEventsSocket(bountyId: string) {
+    return new WebSocket(`${this.websocketUrl}/?bountyId=${bountyId}`);
   }
 
   public async createInvoice(
@@ -15,14 +15,21 @@ class API {
     userId: string,
     username: string
   ) {
-    const response = await axios.post(`${this.apiUrl}/create-bounty-invoice`, {
-      amount: 50,
-      userId,
-      bountyId,
-      username,
-    });
-
-    return response;
+    try {
+      const response = await axios.post(
+        `${this.apiUrl}/create-bounty-invoice`,
+        {
+          amount: 50,
+          userId,
+          bountyId,
+          username,
+        }
+      );
+      return response;
+    } catch (err) {
+      console.log({ err });
+    }
+    return null;
   }
 
   public async getAllBounties() {

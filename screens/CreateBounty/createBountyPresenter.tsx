@@ -5,7 +5,7 @@ import navigationService, {
   mainRoutes,
 } from "../../navigation/NavigationService";
 import AuthStore from "../../stores/AuthStore/AuthStore";
-import BountyStore from "../../stores/BountyStore/BountyStore";
+import DashboardStore from "../../stores/DashboardStore/DashboardStore";
 import { useClassStore } from "../../utils/useClassStore";
 
 @injectable()
@@ -13,7 +13,7 @@ class BountyPresenter {
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
-  @inject(BountyStore) private bountyStore!: BountyStore;
+  @inject(DashboardStore) private dashboardStore!: DashboardStore;
   @inject(AuthStore) private authStore!: AuthStore;
   @observable error: string | null = null;
   @observable subject: string = "Subjay";
@@ -26,7 +26,7 @@ class BountyPresenter {
 
   @action public createBountySubmit = async () => {
     console.log({ user: this.authStore.currentUser });
-    const response = await this.bountyStore.createBounty({
+    const response = await this.dashboardStore.createBounty({
       subject: this.subject,
       description: this.description,
       tags: this.tags,

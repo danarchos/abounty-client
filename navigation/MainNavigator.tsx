@@ -18,7 +18,6 @@ import useBountyPresenter from "./bountyPresenter";
 import { useSupabase } from "use-supabase";
 import { View } from "react-native";
 import useAuthPresenter from "../screens/authPresenter";
-import { useBountyStore } from "../stores/BountyStore/BountyStore";
 import ViewBounty from "../screens/ViewBounty/ViewBounty";
 import * as Linking from "expo-linking";
 import LogoButton from "../components/LogoButton";
@@ -29,17 +28,10 @@ const Drawer = createDrawerNavigator<MainNavigatorParamList>();
 export const MainNavigator: FC = observer(() => {
   const { auth } = useSupabase();
 
-  const { listenForPayments } = useBountyStore();
   const { performSignOut, setCurrentUser } = useAuthPresenter();
-
-  const getUrl = async () => {
-    const url = await Linking.getInitialURL();
-  };
 
   useEffect(() => {
     setCurrentUser(auth.user());
-    listenForPayments();
-    getUrl();
   }, [auth]);
 
   const MainStack: FC = () => {
