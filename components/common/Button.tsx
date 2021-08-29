@@ -32,5 +32,6 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     color: "white",
+    fontFamily: "Rubik",
   },
 });
