@@ -7,7 +7,7 @@ import DashboardStore from "../../stores/DashboardStore/DashboardStore";
 import { useClassStore } from "../../utils/useClassStore";
 
 @injectable()
-class BountyPresenter {
+class ViewBountyPresenter {
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
@@ -22,11 +22,27 @@ class BountyPresenter {
   @observable speakers: { username: string; confirmed: boolean }[] = [];
   @observable expiry: number | null = null;
 
+  @observable invoiceQR: {
+    bountyId: string;
+    payreq: string;
+    hash: string;
+    amount: number;
+  } | null = null;
+
+  @action public generateBountyInvoice = async (bountyId: string) => {
+    const response = await this.dashboardStore.createInvoice(bountyId);
+    if (response) {
+      runInAction(() => {
+        this.invoiceQR = { ...response.data, bountyId };
+        console.log({ response });
+      });
+    }
+  };
+
   @action public initialiseViewBounty = async (bountyId: string) => {
     const currentBounty = await this.dashboardStore.getBounty(bountyId);
 
     if (!currentBounty) return;
-
     const { balance, expiry, speakers, subject, description } = currentBounty;
 
     this.bountyId = bountyId;
@@ -38,7 +54,10 @@ class BountyPresenter {
   };
 
   @action public handleEvent = (event: any) => {
-    console.log("recieved payment", JSON.parse(event.data));
+    const data = JSON.parse(event.data);
+    console.log({ data });
+    this.initialiseViewBounty(data.data.bountyId);
+    this.invoiceQR = null;
   };
 
   @action public listenForPayments = async (bountyId: string) => {
@@ -54,6 +73,8 @@ class BountyPresenter {
 }
 
 const useViewBountyPresenter = () =>
-  useClassStore<BountyPresenter>(getRootContainer().get(BountyPresenter));
+  useClassStore<ViewBountyPresenter>(
+    getRootContainer().get(ViewBountyPresenter)
+  );
 
 export default useViewBountyPresenter;

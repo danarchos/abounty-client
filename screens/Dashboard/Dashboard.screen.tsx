@@ -9,7 +9,7 @@ import navigationService, {
   MainNavigatorParamList,
   mainRoutes,
 } from "../../navigation/NavigationService";
-import useBountyPresenter from "../../navigation/bountyPresenter";
+import useDashboardPresenter from "../../navigation/dashboardPresenter";
 import { useDashboardStore } from "../../stores/DashboardStore/DashboardStore";
 import Button from "../../components/common/Button";
 
@@ -21,8 +21,7 @@ export type DashboardRoutingProps = StackScreenProps<
 interface IDashboardScreenProps extends DashboardRoutingProps {}
 
 const Dashboard: FC<IDashboardScreenProps> = () => {
-  const { getAllBounties, generateBountyInvoice, invoiceQR } =
-    useBountyPresenter();
+  const { getAllBounties } = useDashboardPresenter();
   const { allBounties } = useDashboardStore();
 
   useEffect(() => {

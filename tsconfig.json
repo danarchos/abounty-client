@@ -9,7 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
     "lib": ["dom", "esnext"],
-    "types": ["reflect-metadata"],
+    "types": ["reflect-metadata", "styled-components-react-native"],
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,

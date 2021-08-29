@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Dashboard from "../screens/Dashboard/Dashboard.screen";
 import CreateBounty from "../screens/CreateBounty/CreateBounty.screen";
+import theme from "../styles/theme/navigationTheme";
 
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
@@ -14,12 +15,10 @@ import navigationService, {
 } from "./NavigationService";
 import DrawerComponent from "../components/Drawer";
 import Button from "../components/common/Button";
-import useBountyPresenter from "./bountyPresenter";
 import { useSupabase } from "use-supabase";
 import { View } from "react-native";
 import useAuthPresenter from "../screens/authPresenter";
 import ViewBounty from "../screens/ViewBounty/ViewBounty";
-import * as Linking from "expo-linking";
 import LogoButton from "../components/LogoButton";
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
@@ -67,6 +66,7 @@ export const MainNavigator: FC = observer(() => {
   return (
     <NavigationContainer
       linking={mainLinking}
+      theme={theme}
       ref={navigationService.navigationRef}
     >
       <Drawer.Navigator

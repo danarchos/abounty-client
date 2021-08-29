@@ -7,36 +7,20 @@ import AuthStore from "../stores/AuthStore/AuthStore";
 import DashboardStore from "../stores/DashboardStore/DashboardStore";
 
 @injectable()
-class BountyPresenter {
+class DashboardPresenter {
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
   @inject(DashboardStore) private dashboardStore!: DashboardStore;
 
   @observable error: string | null = null;
-  @observable invoiceQR: {
-    bountyId: string;
-    payreq: string;
-    hash: string;
-    amount: number;
-  } | null = null;
-
-  @action public generateBountyInvoice = async (bountyId: string) => {
-    const response = await this.dashboardStore.createInvoice(bountyId);
-    if (response) {
-      runInAction(() => {
-        this.invoiceQR = { ...response.data, bountyId };
-        console.log({ response });
-      });
-    }
-  };
 
   @action public getAllBounties = async () => {
     await this.dashboardStore.getAllBounties();
   };
 }
 
-const useBountyPresenter = () =>
-  useClassStore<BountyPresenter>(getRootContainer().get(BountyPresenter));
+const useDashboardPresenter = () =>
+  useClassStore<DashboardPresenter>(getRootContainer().get(DashboardPresenter));
 
-export default useBountyPresenter;
+export default useDashboardPresenter;

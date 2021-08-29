@@ -17,6 +17,7 @@ class DashboardStore {
 
   @action public createInvoice = async (bountyId: string) => {
     if (!this.authStore.currentUser) return;
+    console.log("hit create");
     const response = await API.createInvoice(
       bountyId,
       this.authStore.currentUser.id,

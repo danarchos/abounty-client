@@ -20,6 +20,9 @@
     "@react-navigation/native": "~5.8.10",
     "@react-navigation/stack": "~5.12.8",
     "@supabase/supabase-js": "^1.20.0",
+    "@types/styled-components": "^5.1.13",
+    "@types/styled-components-react-native": "^5.1.1",
+    "animated-number-react": "^0.1.2",
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
     "expo": "~42.0.1",
@@ -39,6 +42,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-animate-number": "^0.1.2",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-paper": "^4.9.2",
     "react-native-reanimated": "~2.2.0",
@@ -48,6 +52,8 @@
     "react-native-web": "~0.13.12",
     "react-qr-code": "^2.0.1",
     "reflect-metadata": "^0.1.13",
+    "styled-components": "^5.3.1",
+    "styled-tools": "^1.7.2",
     "use-supabase": "^1.0.3"
   },
   "devDependencies": {

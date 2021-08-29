@@ -1,15 +1,24 @@
 import React, { FC } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button as PaperButton } from "react-native-paper";
+import styled from "styled-components/native";
 
 type PaperButtonProps = React.ComponentProps<typeof PaperButton>;
+
+const StyledPaperButton = styled(PaperButton)`
+  background-color: black;
+`;
 
 const Button: FC<PaperButtonProps> = ({ children, ...props }) => {
   return (
     <View style={styles.root}>
-      <PaperButton {...props} mode="contained" labelStyle={styles.buttonLabel}>
+      <StyledPaperButton
+        {...props}
+        mode="contained"
+        labelStyle={styles.buttonLabel}
+      >
         {children}
-      </PaperButton>
+      </StyledPaperButton>
     </View>
   );
 };

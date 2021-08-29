@@ -1,4 +1,5 @@
 import "./init";
+import * as Font from "expo-font";
 
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
@@ -7,12 +8,28 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import RootNavigator from "./navigation/RootNavigator";
 import { SupabaseWrapper } from "./config/SupabaseInit";
+import styled from "styled-components/native";
+
+const AppContainer = styled.View`
+  background-color: brown;
+  height: 100vh;
+  width: 100vw;
+`;
 
 export default function App() {
+  const [loaded] = Font.useFonts({
+    Rye: require("./assets/fonts/Rye-Regular.ttf"),
+    Rubik: require("./assets/fonts/Rubik.ttf"),
+  });
+
+  if (!loaded) return null;
+
   return (
     <SupabaseWrapper>
       <SafeAreaProvider>
-        <RootNavigator />
+        <AppContainer>
+          <RootNavigator />
+        </AppContainer>
         <StatusBar />
       </SafeAreaProvider>
     </SupabaseWrapper>
