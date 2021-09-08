@@ -1,9 +1,18 @@
 import { inject, injectable, postConstruct } from "inversify";
-import { observable, action, makeAutoObservable, runInAction } from "mobx";
+import {
+  observable,
+  action,
+  makeAutoObservable,
+  runInAction,
+  computed,
+} from "mobx";
 import { getRootContainer } from "../../config/ioc/root";
 import API from "../../functions/gateway/API";
+import { Speaker } from "../../model/types";
+import AuthStore from "../../stores/AuthStore/AuthStore";
+import BountyStore from "../../stores/BountyStore/BountyStore";
 
-import DashboardStore from "../../stores/DashboardStore/DashboardStore";
+import DiscoverStore from "../../stores/DiscoverStore/DiscoverStore";
 import { useClassStore } from "../../utils/useClassStore";
 
 @injectable()
@@ -11,7 +20,9 @@ class ViewBountyPresenter {
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
-  @inject(DashboardStore) private dashboardStore!: DashboardStore;
+  @inject(BountyStore) private bountyStore!: BountyStore;
+  @inject(DiscoverStore) private discoverStore!: DiscoverStore;
+  @inject(AuthStore) private authStore!: AuthStore;
 
   @observable ws: WebSocket | null = null;
 
@@ -19,7 +30,7 @@ class ViewBountyPresenter {
   @observable balance: number | null = null;
   @observable subject: string = "";
   @observable description: string = "";
-  @observable speakers: { username: string; confirmed: boolean }[] = [];
+  @observable speakers: Speaker[] = [];
   @observable expiry: number | null = null;
 
   @observable invoiceQR: {
@@ -30,7 +41,7 @@ class ViewBountyPresenter {
   } | null = null;
 
   @action public generateBountyInvoice = async (bountyId: string) => {
-    const response = await this.dashboardStore.createInvoice(bountyId);
+    const response = await this.discoverStore.createInvoice(bountyId);
     if (response) {
       runInAction(() => {
         this.invoiceQR = { ...response.data, bountyId };
@@ -40,7 +51,7 @@ class ViewBountyPresenter {
   };
 
   @action public initialiseViewBounty = async (bountyId: string) => {
-    const currentBounty = await this.dashboardStore.getBounty(bountyId);
+    const currentBounty = await this.discoverStore.getBounty(bountyId);
 
     if (!currentBounty) return;
     const { balance, expiry, speakers, subject, description } = currentBounty;
@@ -53,9 +64,29 @@ class ViewBountyPresenter {
     this.expiry = expiry ?? null;
   };
 
+  @computed get isCurrentUserWanted() {
+    const isInSpeakers = this.speakers.find(
+      (speaker) =>
+        speaker.username ===
+        this.authStore.currentUser.user_metadata.user_name.toLowerCase()
+    );
+    if (isInSpeakers) return true;
+    return false;
+  }
+
+  @action public updateSpeaker = () => {
+    if (!this.bountyId) return;
+    const rez = this.bountyStore.updateSpeaker(
+      this.speakers,
+      this.authStore.currentUser.id,
+      this.bountyId
+    );
+
+    console.log({ rez });
+  };
+
   @action public handleEvent = (event: any) => {
     const data = JSON.parse(event.data);
-    console.log({ data });
     this.initialiseViewBounty(data.data.bountyId);
     this.invoiceQR = null;
   };

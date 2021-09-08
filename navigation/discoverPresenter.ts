@@ -4,23 +4,23 @@ import { useClassStore } from "../utils/useClassStore";
 import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import AuthStore from "../stores/AuthStore/AuthStore";
-import DashboardStore from "../stores/DashboardStore/DashboardStore";
+import DiscoverStore from "../stores/DiscoverStore/DiscoverStore";
 
 @injectable()
-class DashboardPresenter {
+class DiscoverPresenter {
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
-  @inject(DashboardStore) private dashboardStore!: DashboardStore;
+  @inject(DiscoverStore) private discoverStore!: DiscoverStore;
 
   @observable error: string | null = null;
 
   @action public getAllBounties = async () => {
-    await this.dashboardStore.getAllBounties();
+    await this.discoverStore.getAllBounties();
   };
 }
 
-const useDashboardPresenter = () =>
-  useClassStore<DashboardPresenter>(getRootContainer().get(DashboardPresenter));
+const useDiscoverPresenter = () =>
+  useClassStore<DiscoverPresenter>(getRootContainer().get(DiscoverPresenter));
 
-export default useDashboardPresenter;
+export default useDiscoverPresenter;

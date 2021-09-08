@@ -1,8 +1,9 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Dashboard from "../screens/Dashboard/Dashboard.screen";
+import Discover from "../screens/Discover/Discover.screen";
 import CreateBounty from "../screens/CreateBounty/CreateBounty.screen";
+import Rewards from "../screens/Rewards/Rewards.screen";
 import theme from "../styles/theme/navigationTheme";
 
 import { observer } from "mobx-react-lite";
@@ -33,35 +34,21 @@ export const MainNavigator: FC = observer(() => {
     setCurrentUser(auth.user());
   }, [auth]);
 
-  const MainStack: FC = () => {
-    return (
-      <Stack.Navigator
-        screenOptions={{
-          headerLeft: () => <LogoButton />,
-          headerTitle: "",
-          headerStyle: { backgroundColor: "transparent", borderBottomWidth: 0 },
-          headerRight: () => (
-            <View style={{ display: "flex", flexDirection: "row" }}>
-              <Button
-                onPress={() => {
-                  navigationService.navigate(mainRoutes.CreateBounty);
-                }}
-              >
-                Create Bounty
-              </Button>
-              <Button style={{ marginHorizontal: 20 }} onPress={performSignOut}>
-                Log out
-              </Button>
-            </View>
-          ),
-        }}
-      >
-        <Stack.Screen name={mainRoutes.Dashboard} component={Dashboard} />
-        <Stack.Screen name={mainRoutes.ViewBounty} component={ViewBounty} />
-        <Stack.Screen name={mainRoutes.CreateBounty} component={CreateBounty} />
-      </Stack.Navigator>
-    );
-  };
+  // const MainStack: FC = () => {
+  //   return (
+  //     <Stack.Navigator
+  //       screenOptions={{
+  //         headerTitle: "",
+  //         headerStyle: { backgroundColor: "transparent", borderBottomWidth: 0 },
+  //         headerRight: () => (
+  //           <View style={{ display: "flex", flexDirection: "row" }}></View>
+  //         ),
+  //       }}
+  //     >
+  //       <Drawer.Screen name={mainRoutes.Main} component={MainStack} />
+  //     </Stack.Navigator>
+  //   );
+  // };
 
   return (
     <NavigationContainer
@@ -70,11 +57,19 @@ export const MainNavigator: FC = observer(() => {
       ref={navigationService.navigationRef}
     >
       <Drawer.Navigator
-        drawerType="slide"
-        drawerContent={DrawerComponent}
+        drawerType="permanent"
+        drawerContent={(props) => <DrawerComponent {...props} />}
+        drawerStyle={{ width: 200 }}
         drawerPosition="left"
       >
-        <Drawer.Screen name={mainRoutes.Main} component={MainStack} />
+        {/* <Drawer.Screen name={mainRoutes.Main} component={MainStack} /> */}
+        <Drawer.Screen name={mainRoutes.Discover} component={Discover} />
+        <Drawer.Screen
+          name={mainRoutes.CreateBounty}
+          component={CreateBounty}
+        />
+        <Drawer.Screen name={mainRoutes.ViewBounty} component={ViewBounty} />
+        <Drawer.Screen name={mainRoutes.Rewards} component={Rewards} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

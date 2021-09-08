@@ -2,11 +2,11 @@ import { mainRoutes } from "./NavigationService";
 
 export const MenuOptions = [
   {
-    name: mainRoutes.Dashboard,
-    link: mainRoutes.Dashboard,
+    name: mainRoutes.Discover,
+    link: mainRoutes.Discover,
   },
   {
-    name: mainRoutes.Settings,
-    link: mainRoutes.Settings,
+    name: mainRoutes.Rewards,
+    link: mainRoutes.Rewards,
   },
 ];

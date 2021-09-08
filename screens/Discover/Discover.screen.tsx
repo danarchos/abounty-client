@@ -2,27 +2,26 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
-import QRCode from "react-qr-code";
 
 import SignOutButton from "../../components/SignOutButton";
 import navigationService, {
   MainNavigatorParamList,
   mainRoutes,
 } from "../../navigation/NavigationService";
-import useDashboardPresenter from "../../navigation/dashboardPresenter";
-import { useDashboardStore } from "../../stores/DashboardStore/DashboardStore";
+import useDiscoverPresenter from "../../navigation/discoverPresenter";
+import { useDiscoverStore } from "../../stores/DiscoverStore/DiscoverStore";
 import Button from "../../components/common/Button";
 
-export type DashboardRoutingProps = StackScreenProps<
+export type DiscoverRoutingProps = StackScreenProps<
   MainNavigatorParamList,
-  mainRoutes.Dashboard
+  mainRoutes.Discover
 >;
 
-interface IDashboardScreenProps extends DashboardRoutingProps {}
+interface IDiscoverScreenProps extends DiscoverRoutingProps {}
 
-const Dashboard: FC<IDashboardScreenProps> = () => {
-  const { getAllBounties } = useDashboardPresenter();
-  const { allBounties } = useDashboardStore();
+const Discover: FC<IDiscoverScreenProps> = () => {
+  const { getAllBounties } = useDiscoverPresenter();
+  const { allBounties } = useDiscoverStore();
 
   useEffect(() => {
     getAllBounties();
@@ -55,7 +54,7 @@ const Dashboard: FC<IDashboardScreenProps> = () => {
   );
 };
 
-export default observer(Dashboard);
+export default observer(Discover);
 
 const styles = StyleSheet.create({
   bountyContainer: {

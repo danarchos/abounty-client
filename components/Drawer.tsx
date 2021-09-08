@@ -1,47 +1,73 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { Link } from "@react-navigation/native";
 import React, { FC } from "react";
-import { View, StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
+import { TouchableOpacity, View } from "react-native";
+import { Text } from "./common/Text";
+import styled from "styled-components/native";
 import { MenuOptions } from "../navigation/MenuOptions";
-import navigationService from "../navigation/NavigationService";
-import SignOutButton from "./SignOutButton";
+import navigationService, { mainRoutes } from "../navigation/NavigationService";
+import LogoButton from "./LogoButton";
+import Button from "./common/Button";
+import useAuthPresenter from "../screens/authPresenter";
+
+const Container = styled.View`
+  background-color: #e5e1db;
+  height: 100%;
+  padding: 10px 20px;
+`;
+
+const NavMenu = styled.View`
+  margin-top: 30px;
+`;
 
 const Drawer: FC<DrawerContentComponentProps> = ({ state, navigation }) => {
+  const currentRouteIndex = state?.index;
+  const currentRoute = state?.routeNames[currentRouteIndex];
+  const { performSignOut, setCurrentUser } = useAuthPresenter();
+
   return (
-    <View>
-      {/* {MenuOptions.map(({ name, link, icon }) => {
-        // TODO: better styling
-        return (
-          <Link
-            to={link}
-            style={styles.listItemContainer}
-            onPress={() => navigationService.navigate(link)}
-          >
-            <View style={styles.linkContainer}>
-              {icon}
-              <Text>{name}</Text>
-            </View>
-          </Link>
-        );
-      })} */}
-      <SignOutButton />
-    </View>
+    <Container>
+      <View>
+        <LogoButton
+          onPress={() => navigationService.navigate(mainRoutes.Discover)}
+        />
+        <NavMenu>
+          {MenuOptions.map(({ name, link }) => {
+            return (
+              <TouchableOpacity
+                key={link}
+                onPress={() => navigationService.navigate(link)}
+              >
+                <Text
+                  gutterBottom={10}
+                  weight={
+                    (name === "Discover" && currentRoute === "Main") ||
+                    name === currentRoute
+                      ? "bold"
+                      : "regular"
+                  }
+                  size="small"
+                >
+                  {name}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </NavMenu>
+        <TouchableOpacity onPress={performSignOut}>
+          <Text gutterBottom={20} size="small">
+            Log out
+          </Text>
+        </TouchableOpacity>
+        <Button
+          onPress={() => {
+            navigationService.navigate(mainRoutes.CreateBounty);
+          }}
+        >
+          Create Bounty
+        </Button>
+      </View>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  listItemContainer: {
-    justifyContent: "space-between",
-    paddingHorizontal: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 20,
-  },
-  linkContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});
 
 export default Drawer;

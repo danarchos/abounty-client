@@ -1,11 +1,13 @@
 import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import { getRootContainer } from "../../config/ioc/root";
+import { Speaker } from "../../model/types";
 import navigationService, {
   mainRoutes,
 } from "../../navigation/NavigationService";
 import AuthStore from "../../stores/AuthStore/AuthStore";
-import DashboardStore from "../../stores/DashboardStore/DashboardStore";
+import BountyStore from "../../stores/BountyStore/BountyStore";
+import DiscoverStore from "../../stores/DiscoverStore/DiscoverStore";
 import { useClassStore } from "../../utils/useClassStore";
 
 @injectable()
@@ -13,23 +15,89 @@ class BountyPresenter {
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
-  @inject(DashboardStore) private dashboardStore!: DashboardStore;
+  @inject(BountyStore) private bountyStore!: BountyStore;
+  @inject(DiscoverStore) private discoverStore!: DiscoverStore;
   @inject(AuthStore) private authStore!: AuthStore;
   @observable error: string | null = null;
-  @observable subject: string = "Subjay";
-  @observable description: string = "Bountay";
+  @observable subject: string = "";
+  @observable description: string = "";
   @observable tags: string[] = ["testing"];
-  @observable speakers: { username: string; confirmed: boolean }[] = [
-    { username: "dannyjmac", confirmed: false },
-    { username: "jackmallers", confirmed: false },
-  ];
+  @observable step: number = 0;
+  @observable speakerString: string = "";
+  @observable tagString: string = "";
+  @observable speakers: Speaker[] = [];
+
+  @action public setSpeakers = (speakers: string) => {
+    this.speakerString = speakers;
+    const array = this.speakerString.split(" ");
+    if (array.length > 1) {
+      const newArray = array.map((string) => {
+        if (!string.startsWith("@") && string.split("").length > 1) {
+          return "@" + string;
+        }
+        return string;
+      });
+      this.speakerString = newArray.join(" ");
+    }
+  };
+
+  @action public setTags = (tags: string) => {
+    this.tagString = tags;
+    const array = this.tagString.split(" ");
+    if (array.length > 1) {
+      const newArray = array.map((string) => {
+        if (!string.startsWith("#") && string.split("").length > 1) {
+          return "#" + string;
+        }
+        return string;
+      });
+      this.tagString = newArray.join(" ");
+    }
+  };
+
+  @action public checkSpeakers = async () => {
+    const users = this.speakerString.split(" ");
+    if (users.length > 4) {
+      this.error = "There is a limit of 4 speakers";
+      return;
+    }
+    const response = await this.bountyStore.checkSpeakers(users);
+    if (response.data.data.length !== users.length) {
+      this.error = "Error, check usernames are valid usernames on twitter";
+      return;
+    }
+    this.speakers = response.data.data.map((speaker: Speaker) => {
+      return {
+        ...speaker,
+        confirmed: false,
+        userId: this.authStore.currentUser.id,
+      };
+    });
+    this.updateStep(this.step + 1);
+  };
+
+  @action public updateStep = (newStep: number) => {
+    this.step = newStep;
+  };
+
+  @action public setDescription = (description: string) => {
+    this.description = description;
+  };
+
+  @action public setSubject = (subject: string) => {
+    this.subject = subject;
+  };
 
   @action public createBountySubmit = async () => {
-    console.log({ user: this.authStore.currentUser });
-    const response = await this.dashboardStore.createBounty({
+    const tags = this.tagString.split(" ");
+    if (tags.length > 2) {
+      this.error = "There is a limit of 2 hashtags";
+      return;
+    }
+    const response = await this.discoverStore.createBounty({
       subject: this.subject,
       description: this.description,
-      tags: this.tags,
+      tags: this.tagString.split(""),
       speakers: this.speakers,
       user: {
         id: this.authStore.currentUser.id,
@@ -38,7 +106,7 @@ class BountyPresenter {
       },
     });
     if (response) {
-      navigationService.navigate(mainRoutes.Dashboard);
+      navigationService.navigate(mainRoutes.Discover);
     }
   };
 }

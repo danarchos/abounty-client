@@ -9,9 +9,10 @@ export enum authRoutes {
 
 export enum mainRoutes {
   Main = "Main",
-  Dashboard = "Dashboard",
+  Discover = "Discover",
   ViewBounty = "ViewBounty",
   CreateBounty = "CreateBounty",
+  Rewards = "Rewards",
 }
 
 export const authLinks = {
@@ -20,9 +21,10 @@ export const authLinks = {
 };
 
 export const mainLinks = {
-  [mainRoutes.Dashboard]: "dashboard",
-  [mainRoutes.ViewBounty]: "bounty/:id",
-  [mainRoutes.CreateBounty]: "create-bounty",
+  [mainRoutes.Discover]: "/discover",
+  [mainRoutes.ViewBounty]: "/bounty/:id",
+  [mainRoutes.CreateBounty]: "/create-bounty",
+  [mainRoutes.Rewards]: "/rewards",
   [mainRoutes.Main]: "",
 };
 
@@ -34,7 +36,8 @@ export type AuthNavigatorParamList = {
 export type MainNavigatorParamList = {
   [mainRoutes.Main]: undefined;
   [mainRoutes.ViewBounty]: { id: string };
-  [mainRoutes.Dashboard]: undefined;
+  [mainRoutes.Discover]: undefined;
+  [mainRoutes.Rewards]: undefined;
   [mainRoutes.CreateBounty]: undefined;
 };
 
@@ -43,19 +46,17 @@ export const mainLinking = {
   prefixes: [],
   config: {
     screens: {
-      Main: {
-        path: "",
-        screens: {
-          Dashboard: {
-            path: "/dashboard",
-          },
-          CreateBounty: {
-            path: "/create-bounty",
-          },
-          ViewBounty: {
-            path: "bounty/:id",
-          },
-        },
+      Discover: {
+        path: "/discover",
+      },
+      CreateBounty: {
+        path: "/create-bounty",
+      },
+      ViewBounty: {
+        path: "/bounty/:id",
+      },
+      Rewards: {
+        path: "/rewards",
       },
     },
   },

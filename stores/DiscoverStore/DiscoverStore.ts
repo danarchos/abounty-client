@@ -7,7 +7,7 @@ import API from "../../functions/gateway/API";
 import AuthStore from "../AuthStore/AuthStore";
 
 @injectable()
-class DashboardStore {
+class DiscoverStore {
   @inject(AuthStore) private authStore!: AuthStore;
 
   @postConstruct() onInit() {
@@ -69,7 +69,7 @@ class DashboardStore {
   };
 }
 
-export const useDashboardStore = () =>
-  useClassStore<DashboardStore>(getRootContainer().get(DashboardStore));
+export const useDiscoverStore = () =>
+  useClassStore<DiscoverStore>(getRootContainer().get(DiscoverStore));
 
-export default DashboardStore;
+export default DiscoverStore;

@@ -1,6 +1,6 @@
 import axios from "axios";
 import Constants from "expo-constants";
-import { Bounty } from "../../model/types";
+import { Bounty, Speaker } from "../../model/types";
 
 class API {
   private apiUrl = Constants.manifest?.extra?.apiBaseUrl;
@@ -32,6 +32,14 @@ class API {
     return null;
   }
 
+  public async usernames(speakers: string) {
+    const response = await axios.get(
+      `${this.apiUrl}/usernames?users=${speakers}`
+    );
+    console.log({ response });
+    return response;
+  }
+
   public async getAllBounties() {
     const response = await axios.get(`${this.apiUrl}/bounties`);
     return response;
@@ -39,6 +47,19 @@ class API {
 
   public async getBounty(id: string) {
     const response = await axios.get(`${this.apiUrl}/bounty/${id}`);
+    return response;
+  }
+
+  public async updateSpeaker(
+    speakers: Speaker[],
+    userId: string,
+    bountyId: string
+  ) {
+    const response = await axios.post(`${this.apiUrl}/update-speaker`, {
+      speakers,
+      userId,
+      bountyId,
+    });
     return response;
   }
 
