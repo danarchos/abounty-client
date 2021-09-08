@@ -42,6 +42,7 @@ class BountyPresenter {
   };
 
   @action public setTags = (tags: string) => {
+    console.log("called set tags");
     this.tagString = tags;
     const array = this.tagString.split(" ");
     if (array.length > 1) {
@@ -51,6 +52,7 @@ class BountyPresenter {
         }
         return string;
       });
+      this.tags = newArray;
       this.tagString = newArray.join(" ");
     }
   };
@@ -89,15 +91,14 @@ class BountyPresenter {
   };
 
   @action public createBountySubmit = async () => {
-    const tags = this.tagString.split(" ");
-    if (tags.length > 2) {
+    if (this.tags.length > 2) {
       this.error = "There is a limit of 2 hashtags";
       return;
     }
     const response = await this.discoverStore.createBounty({
       subject: this.subject,
       description: this.description,
-      tags: this.tagString.split(""),
+      tags: this.tags,
       speakers: this.speakers,
       user: {
         id: this.authStore.currentUser.id,
