@@ -11,6 +11,10 @@ export interface Bounty {
   expiry?: number;
 }
 
+export interface Reward extends Bounty {
+  payout: number;
+}
+
 export type Speaker = {
   id: string;
   name: string;

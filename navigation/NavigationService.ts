@@ -11,6 +11,7 @@ export enum mainRoutes {
   Main = "Main",
   Discover = "Discover",
   ViewBounty = "ViewBounty",
+  ViewReward = "ViewReward",
   CreateBounty = "CreateBounty",
   Rewards = "Rewards",
 }
@@ -23,6 +24,7 @@ export const authLinks = {
 export const mainLinks = {
   [mainRoutes.Discover]: "/discover",
   [mainRoutes.ViewBounty]: "/bounty/:id",
+  [mainRoutes.ViewReward]: "/reward/:id",
   [mainRoutes.CreateBounty]: "/create-bounty",
   [mainRoutes.Rewards]: "/rewards",
   [mainRoutes.Main]: "",
@@ -36,6 +38,7 @@ export type AuthNavigatorParamList = {
 export type MainNavigatorParamList = {
   [mainRoutes.Main]: undefined;
   [mainRoutes.ViewBounty]: { id: string };
+  [mainRoutes.ViewReward]: { id: string };
   [mainRoutes.Discover]: undefined;
   [mainRoutes.Rewards]: undefined;
   [mainRoutes.CreateBounty]: undefined;
@@ -57,6 +60,9 @@ export const mainLinking = {
       },
       Rewards: {
         path: "/rewards",
+      },
+      ViewReward: {
+        path: "/reward",
       },
     },
   },

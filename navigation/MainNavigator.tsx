@@ -20,6 +20,7 @@ import { useSupabase } from "use-supabase";
 import { View } from "react-native";
 import useAuthPresenter from "../screens/authPresenter";
 import ViewBounty from "../screens/ViewBounty/ViewBounty";
+import ViewReward from "../screens/ViewReward/ViewReward";
 import LogoButton from "../components/LogoButton";
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
@@ -52,6 +53,7 @@ export const MainNavigator: FC = observer(() => {
           component={CreateBounty}
         />
         <Drawer.Screen name={mainRoutes.ViewBounty} component={ViewBounty} />
+        <Drawer.Screen name={mainRoutes.ViewReward} component={ViewReward} />
         <Drawer.Screen name={mainRoutes.Rewards} component={Rewards} />
       </Drawer.Navigator>
     </NavigationContainer>
