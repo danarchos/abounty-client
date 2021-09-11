@@ -16,8 +16,9 @@ class AuthPresenter {
   @observable password: string = "";
   @observable loginError: boolean = false;
 
-  @action public setCurrentUser = (user: any) =>
+  @action public setCurrentUser = (user: any) => {
     this.authStore.setCurrentUser(user);
+  };
 
   @action public setEmail = (value: string) => {
     this.email = value;

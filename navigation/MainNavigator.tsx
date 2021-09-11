@@ -34,22 +34,6 @@ export const MainNavigator: FC = observer(() => {
     setCurrentUser(auth.user());
   }, [auth]);
 
-  // const MainStack: FC = () => {
-  //   return (
-  //     <Stack.Navigator
-  //       screenOptions={{
-  //         headerTitle: "",
-  //         headerStyle: { backgroundColor: "transparent", borderBottomWidth: 0 },
-  //         headerRight: () => (
-  //           <View style={{ display: "flex", flexDirection: "row" }}></View>
-  //         ),
-  //       }}
-  //     >
-  //       <Drawer.Screen name={mainRoutes.Main} component={MainStack} />
-  //     </Stack.Navigator>
-  //   );
-  // };
-
   return (
     <NavigationContainer
       linking={mainLinking}
@@ -62,7 +46,6 @@ export const MainNavigator: FC = observer(() => {
         drawerStyle={{ width: 200 }}
         drawerPosition="left"
       >
-        {/* <Drawer.Screen name={mainRoutes.Main} component={MainStack} /> */}
         <Drawer.Screen name={mainRoutes.Discover} component={Discover} />
         <Drawer.Screen
           name={mainRoutes.CreateBounty}

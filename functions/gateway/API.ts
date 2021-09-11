@@ -71,6 +71,7 @@ class API {
     description,
     active,
   }: Bounty) {
+    console.log("create bounty", user);
     const response = await axios.post(`${this.apiUrl}/create-bounty`, {
       description,
       active,

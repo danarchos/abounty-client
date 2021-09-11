@@ -49,7 +49,6 @@ const NumberContainer = styled.View`
 const SpeakersContainer = styled.View`
   display: flex;
   flex-direction: column;
-  overflow-x: scroll;
 `;
 
 const SpeakerInfo = styled.View`
@@ -61,7 +60,7 @@ const SpeakerInfo = styled.View`
 
 const SpeakerContainer = styled.View<{ bg?: string }>`
   background-color: ${({ bg }) => (bg ? bg : "transparent")};
-  border-top-width: 1px;
+  border-bottom-width: 1px;
   margin-bottom: 10px;
   height: 70px;
   display: flex;
@@ -142,7 +141,7 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
           <NumberContainer>
             {Platform.OS === "web" && (
               <StyledAnimateNumber
-                value={balance}
+                value={!balance ? 0 : balance}
                 // interval = base number of intervals
                 interval={40}
                 // steps = frame number

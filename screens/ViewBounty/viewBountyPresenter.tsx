@@ -74,15 +74,14 @@ class ViewBountyPresenter {
     return false;
   }
 
-  @action public updateSpeaker = () => {
+  @action public updateSpeaker = async () => {
     if (!this.bountyId) return;
-    const rez = this.bountyStore.updateSpeaker(
+    const response = await this.bountyStore.updateSpeaker(
       this.speakers,
       this.authStore.currentUser.id,
       this.bountyId
     );
-
-    console.log({ rez });
+    this.speakers = response.data[0].speakers;
   };
 
   @action public handleEvent = (event: any) => {

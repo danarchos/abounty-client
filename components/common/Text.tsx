@@ -8,13 +8,21 @@ interface ITextProps {
   gutterBottom?: number;
   weight?: "regular" | "bold";
   color?: string;
+  truncate?: boolean;
+  capitalise?: boolean;
 }
 
 const StyledText = styled.Text<ITextProps>`
+  ${ifProp(
+    { capitalise: true },
+    css`
+      text-transform: capitalize;
+    `
+  )};
   font-weight: ${ifProp({ weight: "bold" }, "bold", "regular")};
-  color: ${({ color }) => color}
+  color: ${({ color }) => color};
   margin-bottom: ${({ gutterBottom }) =>
-    gutterBottom ? `${gutterBottom}px` : "0px"}
+      gutterBottom ? `${gutterBottom}px` : "0px"}
     ${switchProp("textStyle", {
       primary: css`
         font-family: "Rubik";
@@ -53,6 +61,8 @@ export const Text: FC<ITextProps> = ({
   gutterBottom,
   weight = "regular",
   color = "black",
+  truncate = false,
+  capitalise = false,
 }) => (
   <StyledText
     weight={weight}
@@ -60,6 +70,8 @@ export const Text: FC<ITextProps> = ({
     textStyle={textStyle}
     size={size}
     color={color}
+    numberOfLines={truncate ? 1 : 0}
+    capitalise={capitalise}
   >
     {children}
   </StyledText>

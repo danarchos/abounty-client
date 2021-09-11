@@ -71,8 +71,9 @@ class BountyPresenter {
     this.speakers = response.data.data.map((speaker: Speaker) => {
       return {
         ...speaker,
+        username: speaker.username.toLowerCase(),
         confirmed: false,
-        userId: this.authStore.currentUser.id,
+        twitterId: speaker.id,
       };
     });
     this.updateStep(this.step + 1);
@@ -95,6 +96,10 @@ class BountyPresenter {
       this.error = "There is a limit of 2 hashtags";
       return;
     }
+    console.log(
+      "username",
+      this.authStore.currentUser.user_metadata.user_name.toLowerCase()
+    );
     const response = await this.discoverStore.createBounty({
       subject: this.subject,
       description: this.description,
