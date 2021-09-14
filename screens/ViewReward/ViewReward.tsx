@@ -93,10 +93,6 @@ const FlexContainer = styled.View`
 const StyledText = styled(Text)``;
 
 const ViewReward: FC<IViewRewardScreenProps> = ({ route }) => {
-  // const { listenForPayments, removeListener, updateSpeaker } =
-  //   useViewBountyPresenter();
-  // const { currentUser } = useAuthStore();
-
   const { initialiseViewReward, subject } = useViewRewardPresenter();
 
   useEffect(() => {
@@ -120,6 +116,7 @@ const ViewReward: FC<IViewRewardScreenProps> = ({ route }) => {
           </Text>
           {/* <Text gutterBottom={25}>{description}</Text> */}
         </View>
+        <QRCode value="lnurl1dp68gup69uhnzwfj9ccnvwpwxyhrgw35xqcrztmvde6hymplwy7nwep4vvcxgc348qmx2vtyxe3nsdenxqmr2d3sxgexgdnyxyurjefkvvckzwfsxvmr2wtzx3jrzc3sx3snzdek8yun2vmxv43n2ctxxvdxrmka" />
         <View style={{ flex: 0.35 }}>
           <Text gutterBottom={8} size="xsmall" textStyle="secondary">
             REWARD
