@@ -26,6 +26,7 @@ class BountyPresenter {
   @observable speakerString: string = "";
   @observable tagString: string = "";
   @observable speakers: Speaker[] = [];
+  @observable initialPayment: string | null = null;
 
   @action public setSpeakers = (speakers: string) => {
     this.speakerString = speakers;
@@ -115,6 +116,16 @@ class BountyPresenter {
       navigationService.navigate(mainRoutes.Discover);
     }
   };
+
+  // @action public handleStepThree = async () => {
+  //   const response = await this.bountyStore.createInvoice(bountyId);
+  //   if (response) {
+  //     runInAction(() => {
+  //       this.invoiceQR = { ...response.data, bountyId };
+  //       console.log({ response });
+  //     });dexq2  ``
+  //   }
+  // }
 }
 
 const useCreateBountyPresenter = () =>
