@@ -32,6 +32,11 @@ class API {
     return null;
   }
 
+  public async getWithdrawRequest() {
+    const response = await axios.get(`${this.apiUrl}/withdraw-request`);
+    return response;
+  }
+
   public async usernames(speakers: string) {
     const response = await axios.get(
       `${this.apiUrl}/usernames?users=${speakers}`
@@ -40,7 +45,7 @@ class API {
   }
 
   public async getAllBounties() {
-    const response = await axios.get(`${this.apiUrl}/bounties`);
+    const response = await axios.get(`${this.apiUrl}/live-bounties`);
     return response;
   }
 

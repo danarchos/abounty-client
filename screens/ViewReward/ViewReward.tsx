@@ -10,7 +10,6 @@ import {
   mainRoutes,
 } from "../../navigation/NavigationService";
 import Button from "../../components/common/Button";
-import useViewBountyPresenter from "./viewBountyPresenter";
 import styled from "styled-components/native";
 import { Text } from "../../components/common/Text";
 import AnimateNumber from "react-native-animate-number";
@@ -93,7 +92,8 @@ const FlexContainer = styled.View`
 const StyledText = styled(Text)``;
 
 const ViewReward: FC<IViewRewardScreenProps> = ({ route }) => {
-  const { initialiseViewReward, subject } = useViewRewardPresenter();
+  const { initialiseViewReward, subject, handleWithdraw, withdrawRequest } =
+    useViewRewardPresenter();
 
   useEffect(() => {
     initialiseViewReward(route.params.id);
@@ -116,11 +116,13 @@ const ViewReward: FC<IViewRewardScreenProps> = ({ route }) => {
           </Text>
           {/* <Text gutterBottom={25}>{description}</Text> */}
         </View>
-        <QRCode value="lnurl1dp68gup69uhnzwfj9ccnvwpwxyhrgw35xqcrztmvde6hymplwy7nwep4vvcxgc348qmx2vtyxe3nsdenxqmr2d3sxgexgdnyxyurjefkvvckzwfsxvmr2wtzx3jrzc3sx3snzdek8yun2vmxv43n2ctxxvdxrmka" />
+
         <View style={{ flex: 0.35 }}>
           <Text gutterBottom={8} size="xsmall" textStyle="secondary">
             REWARD
           </Text>
+          <Button onPress={handleWithdraw}>Withdraw</Button>
+
           {/* <NumberContainer>
             {Platform.OS === "web" && (
               <StyledAnimateNumber
@@ -135,6 +137,7 @@ const ViewReward: FC<IViewRewardScreenProps> = ({ route }) => {
           </NumberContainer> */}
         </View>
       </FlexContainer>
+      {withdrawRequest && <QRCode value={withdrawRequest} />}
     </Container>
   );
 };

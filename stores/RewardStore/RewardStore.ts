@@ -17,10 +17,8 @@ class RewardStore {
   @observable rewards: Reward[] = [];
 
   @action public getRewards = async () => {
-    console.log("called in store");
     console.log(this.authStore.currentUser);
     if (this.authStore.currentUser) {
-      console.log("made condition");
       const response = await API.getRewards(
         this.authStore.currentUser.user_metadata.user_name.toLowerCase()
       );
@@ -32,6 +30,11 @@ class RewardStore {
   @action public getReward = async (id: string) => {
     const response = await API.getReward(id);
     return response.data;
+  };
+
+  @action public getWithdrawRequest = async () => {
+    const response = await API.getWithdrawRequest();
+    return response;
   };
 }
 

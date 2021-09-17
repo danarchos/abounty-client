@@ -4,27 +4,13 @@ import { Bounty } from "../../model/types";
 import { useClassStore } from "../../utils/useClassStore";
 import { getRootContainer } from "../../config/ioc/root";
 import API from "../../functions/gateway/API";
-import AuthStore from "../AuthStore/AuthStore";
 
 @injectable()
 class DiscoverStore {
-  @inject(AuthStore) private authStore!: AuthStore;
-
   @postConstruct() onInit() {
     makeAutoObservable(this);
   }
   @observable allBounties: Bounty[] = [];
-
-  @action public createInvoice = async (bountyId: string) => {
-    if (!this.authStore.currentUser) return;
-    console.log("hit create");
-    const response = await API.createInvoice(
-      bountyId,
-      this.authStore.currentUser.id,
-      this.authStore.currentUser.user_metadata.user_name
-    );
-    return response;
-  };
 
   @action public getAllBounties = async () => {
     const response = await API.getAllBounties();

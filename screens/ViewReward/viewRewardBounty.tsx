@@ -32,6 +32,8 @@ class ViewRewardPresenter {
   @observable speakers: Speaker[] = [];
   @observable expiry: number | null = null;
 
+  @observable withdrawRequest: string | null = null;
+
   @observable invoiceQR: {
     bountyId: string;
     payreq: string;
@@ -48,6 +50,12 @@ class ViewRewardPresenter {
     this.subject = currentReward.subject;
     this.description = currentReward.description;
     this.expiry = currentReward.expiry ?? null;
+  };
+
+  @action public handleWithdraw = async () => {
+    const response = await this.rewardStore.getWithdrawRequest();
+    this.withdrawRequest = response.data.withdrawRequest;
+    console.log({ response });
   };
 }
 

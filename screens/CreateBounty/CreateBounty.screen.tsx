@@ -53,6 +53,7 @@ const CreateBounty: FC = () => {
     setTags,
     tagString,
     error,
+    handleStepThree,
   } = useCreateBountyPresenter();
   return (
     <Container>
@@ -138,6 +139,18 @@ const CreateBounty: FC = () => {
             value={tagString}
             onChangeText={(text) => setTags(text)}
           />
+          <ButtonsContainer>
+            <Button onPress={() => updateStep(step - 1)}>Previous</Button>
+            <Button onPress={handleStepThree}>Create Bounty</Button>
+          </ButtonsContainer>
+        </StepContainer>
+      )}
+      {step === 4 && (
+        <StepContainer>
+          <Text gutterBottom={3} size="small">
+            PAY BOUNTY
+          </Text>
+
           <ButtonsContainer>
             <Button onPress={() => updateStep(step - 1)}>Previous</Button>
             <Button onPress={createBountySubmit}>Create Bounty</Button>

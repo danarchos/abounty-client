@@ -49,14 +49,11 @@ const Discover: FC<IDiscoverScreenProps> = () => {
   const { getAllBounties } = useDiscoverPresenter();
   const { allBounties } = useDiscoverStore();
 
-  const { currentUser } = useAuthStore();
-
   useEffect(() => {
     getAllBounties();
   }, []);
 
   if (!allBounties) return null;
-  console.log({ currentUser });
 
   return (
     <Container>

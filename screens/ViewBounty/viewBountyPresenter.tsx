@@ -41,7 +41,7 @@ class ViewBountyPresenter {
   } | null = null;
 
   @action public generateBountyInvoice = async (bountyId: string) => {
-    const response = await this.discoverStore.createInvoice(bountyId);
+    const response = await this.bountyStore.createInvoice(bountyId);
     if (response) {
       runInAction(() => {
         this.invoiceQR = { ...response.data, bountyId };
