@@ -141,18 +141,6 @@ const CreateBounty: FC = () => {
           />
           <ButtonsContainer>
             <Button onPress={() => updateStep(step - 1)}>Previous</Button>
-            <Button onPress={handleStepThree}>Create Bounty</Button>
-          </ButtonsContainer>
-        </StepContainer>
-      )}
-      {step === 4 && (
-        <StepContainer>
-          <Text gutterBottom={3} size="small">
-            PAY BOUNTY
-          </Text>
-
-          <ButtonsContainer>
-            <Button onPress={() => updateStep(step - 1)}>Previous</Button>
             <Button onPress={createBountySubmit}>Create Bounty</Button>
           </ButtonsContainer>
         </StepContainer>

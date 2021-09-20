@@ -64,6 +64,11 @@ class ViewBountyPresenter {
     this.expiry = expiry ?? null;
   };
 
+  @action public expireBounty = async (bountyId: string) => {
+    const response = this.bountyStore.expireBounty(bountyId);
+    console.log({ response });
+  };
+
   @computed get isCurrentUserWanted() {
     const isInSpeakers = this.speakers.find(
       (speaker) =>

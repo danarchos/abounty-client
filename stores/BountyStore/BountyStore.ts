@@ -37,6 +37,11 @@ class BountyStore {
     );
     return response;
   };
+
+  @action public expireBounty = async (bountyId: string) => {
+    const response = await API.expireBounty(bountyId);
+    return response;
+  };
 }
 
 export const useBountyStore = () =>

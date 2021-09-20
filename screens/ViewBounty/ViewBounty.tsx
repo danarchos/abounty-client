@@ -25,8 +25,9 @@ type IViewBountyScreenProps = {
 const Container = styled.View<{ size?: ScreenSize }>`
   padding: ${({ size }) =>
     size === ScreenSize.desktop ? "100px 200px" : "0px"};
-  height: 100%;
+  /* height: 100%; */
   display: flex;
+  flex: 1;
 `;
 
 const StyledAnimateNumber = styled(AnimateNumber)`
@@ -113,6 +114,7 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
     balance,
     speakers,
     isCurrentUserWanted,
+    expireBounty,
   } = useViewBountyPresenter();
 
   const [size] = useScreenSize();
@@ -157,61 +159,65 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
         WANTED
       </Text>
       <SpeakersContainer>
-        {speakers.map((item) => (
-          <SpeakerContainer key={item.username}>
-            <Image
-              style={{ height: 68, width: 68, marginRight: 5 }}
-              source={{ uri: item.profile_image_url }}
-            />
-            <SpeakerInfo>
-              <Main>
-                <Text
-                  // color={item.confirmed ? "white" : "black"}
-                  weight="bold"
-                  gutterBottom={3}
-                >
-                  {item.name}{" "}
-                </Text>
-                <StyledText
-                  // color={item.confirmed ? "white" : "black"}
-                  size="xsmall"
-                >
-                  {" "}
-                  @{item.username.toLowerCase()}
-                </StyledText>
-              </Main>
-              <Text size="small">{item.description}</Text>
-            </SpeakerInfo>
-            {item.confirmed ? (
-              <Status>
-                <Text weight="bold" size="xsmall">
-                  {item.confirmed ? "Accepted" : "Unconfirmed"}
-                </Text>
-              </Status>
-            ) : currentUser.user_metadata.user_name.toLowerCase() ===
-              item.username.toLowerCase() ? (
-              <Button onPress={updateSpeaker}>Accept</Button>
-            ) : (
-              <Status>
-                <Text weight="bold" size="xsmall">
-                  {item.confirmed ? "Accepted" : "Unconfirmed"}
-                </Text>
-              </Status>
-            )}
-          </SpeakerContainer>
-        ))}
+        {!invoiceQR &&
+          speakers.map((item) => (
+            <SpeakerContainer key={item.username}>
+              <Image
+                style={{ height: 68, width: 68, marginRight: 5 }}
+                source={{ uri: item.profile_image_url }}
+              />
+              <SpeakerInfo>
+                <Main>
+                  <Text
+                    // color={item.confirmed ? "white" : "black"}
+                    weight="bold"
+                    gutterBottom={3}
+                  >
+                    {item.name}{" "}
+                  </Text>
+                  <StyledText
+                    // color={item.confirmed ? "white" : "black"}
+                    size="xsmall"
+                  >
+                    {" "}
+                    @{item.username.toLowerCase()}
+                  </StyledText>
+                </Main>
+                <Text size="small">{item.description}</Text>
+              </SpeakerInfo>
+              {item.confirmed ? (
+                <Status>
+                  <Text weight="bold" size="xsmall">
+                    {item.confirmed ? "Accepted" : "Unconfirmed"}
+                  </Text>
+                </Status>
+              ) : currentUser.user_metadata.user_name.toLowerCase() ===
+                item.username.toLowerCase() ? (
+                <Button onPress={updateSpeaker}>Accept</Button>
+              ) : (
+                <Status>
+                  <Text weight="bold" size="xsmall">
+                    {item.confirmed ? "Accepted" : "Unconfirmed"}
+                  </Text>
+                </Status>
+              )}
+            </SpeakerContainer>
+          ))}
       </SpeakersContainer>
-      <ButtonsContainer>
-        <Button onPress={() => generateBountyInvoice(route.params.id)}>
-          Add Funds
-        </Button>
-        {isCurrentUserWanted && (
+      {!invoiceQR && (
+        <ButtonsContainer>
           <Button onPress={() => generateBountyInvoice(route.params.id)}>
-            Accept Bounty
+            Add Funds
           </Button>
-        )}
-      </ButtonsContainer>
+          {isCurrentUserWanted && (
+            <Button onPress={() => generateBountyInvoice(route.params.id)}>
+              Accept Bounty
+            </Button>
+          )}
+        </ButtonsContainer>
+      )}
       {invoiceQR && <QRCode value={invoiceQR.payreq} />}
+      <Button onPress={() => expireBounty(route.params.id)}>Expire</Button>
     </Container>
   );
 };

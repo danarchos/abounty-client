@@ -54,6 +54,13 @@ class API {
     return response;
   }
 
+  public async expireBounty(id: string) {
+    const response = await axios.post(`${this.apiUrl}/expire-bounty`, {
+      id,
+    });
+    return response;
+  }
+
   public async getRewards(username: string) {
     const response = await axios.get(`${this.apiUrl}/rewards/${username}`);
     console.log("called get rewards");
