@@ -97,7 +97,6 @@ class AuthStore {
       console.log(error);
       return null;
     } else {
-      // 'user' is fetched using a different query
       this.setAuthData({ user: null, session });
       if (user) {
         this.checkIfOnboarded();
@@ -114,23 +113,15 @@ class AuthStore {
   };
 
   checkIfOnboarded = async () => {
-    const currentUser = await this.setCurrentUserDetails();
-    // if (currentUser?.name === null || currentUser?.name?.length === 0) {
-    //   navigationService.navigate(mainRoutes.UserOnboard);
-    //   return;
-    // }
-
+    await this.setCurrentUserDetails();
     navigationService.navigate(mainRoutes.Main);
   };
 
   signOut = async () => {
     const response = await signOut();
-    // No error returned - sign out successful
     if (!response) {
       this.setAuthData({ user: null, session: null });
     } else {
-      // TODO: Show error modal / similar if sign out fails
-      console.log(response);
     }
   };
 }

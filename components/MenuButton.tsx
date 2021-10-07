@@ -1,25 +1,23 @@
 import React, { FC } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import Button from "./common/Button";
+import { Text, TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
 
 type TouchableOpacityProps = React.ComponentProps<typeof TouchableOpacity>;
 
 interface IMenuButton extends TouchableOpacityProps {}
 
+const MenuContainer = styled.View`
+  padding: 20px;
+`;
+
 const MenuButton: FC<IMenuButton> = () => {
   return (
-    <View style={styles.root}>
+    <MenuContainer style={styles.root}>
       <TouchableOpacity>
         <Text>MENU</Text>
       </TouchableOpacity>
-    </View>
+    </MenuContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    padding: 20,
-  },
-});
 
 export default MenuButton;

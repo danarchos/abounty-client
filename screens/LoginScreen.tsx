@@ -1,18 +1,22 @@
-import { StackScreenProps } from "@react-navigation/stack";
 import Button from "../components/common/Button";
 import { observer } from "mobx-react-lite";
-import * as React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Input from "../components/common/Input";
+import React from "react";
 import useAuthPresenter from "./authPresenter";
-import { Link } from "@react-navigation/native";
-import { authLinks } from "../navigation/NavigationService";
+import styled from "styled-components/native";
+import { Text } from "../components/common/Text";
+
+const Container = styled.View`
+  flex: 1;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+`;
 
 const LoginScreen = observer(() => {
-  const { setEmail, email, password, setPassword, loginError, performSignIn } =
-    useAuthPresenter();
+  const { loginError, performSignIn } = useAuthPresenter();
   return (
-    <View style={styles.container}>
+    <Container>
       <Button
         onPress={async () => {
           await performSignIn();
@@ -21,37 +25,12 @@ const LoginScreen = observer(() => {
         <Text>Login with twitter</Text>
       </Button>
       {loginError && (
-        <Text style={styles.errorText}>
+        <Text color="red">
           "There was an error creating your account, please try again"
         </Text>
       )}
-    </View>
+    </Container>
   );
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  errorText: {
-    color: "red",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: "#2e78b7",
-  },
 });
 
 export default LoginScreen;

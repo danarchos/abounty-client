@@ -1,20 +1,28 @@
-import { StackScreenProps } from "@react-navigation/stack";
 import Input from "../components/common/Input";
 import { observer } from "mobx-react-lite";
-import * as React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { Text } from "../components/common/Text";
 import useAuthPresenter from "./authPresenter";
 import Button from "../components/common/Button";
 import { Link } from "@react-navigation/native";
 import { authLinks } from "../navigation/NavigationService";
+import styled from "styled-components/native";
+
+const Container = styled.View`
+  flex: 1;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+  padding: 20;
+`;
 
 const SignUpScreen = observer(() => {
   const { setEmail, email, password, setPassword, performSignUp, loginError } =
     useAuthPresenter();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Sign UP</Text>
+    <Container>
+      <Text weight="bold">Sign UP</Text>
       <Input
         label="Email"
         value={email}
@@ -33,43 +41,14 @@ const SignUpScreen = observer(() => {
       >
         <Text>Create Account</Text>
       </Button>
-      {loginError && (
-        <Text style={styles.errorText}>
-          "There was an error creating your account, please try again"
-        </Text>
-      )}
+
       <Link to={`/${authLinks.Login}`}>
         <Button>
           <Text>Have an account?</Text>
         </Button>
       </Link>
-    </View>
+    </Container>
   );
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  errorText: {
-    color: "red",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: "#2e78b7",
-  },
 });
 
 export default SignUpScreen;

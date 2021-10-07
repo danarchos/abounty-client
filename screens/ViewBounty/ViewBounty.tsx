@@ -1,9 +1,7 @@
-import { StackScreenProps } from "@react-navigation/stack";
-import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RouteProp } from "@react-navigation/native";
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
-import { View, StyleSheet, Platform, Image } from "react-native";
+import { View, Platform, Image } from "react-native";
 import QRCode from "react-qr-code";
 import {
   MainNavigatorParamList,
@@ -142,9 +140,7 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
             {Platform.OS === "web" && (
               <StyledAnimateNumber
                 value={!balance ? 0 : balance}
-                // interval = base number of intervals
                 interval={40}
-                // steps = frame number
                 steps={45}
                 formatter={(val: string) => parseFloat(val).toFixed(0)}
               />

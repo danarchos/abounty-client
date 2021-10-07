@@ -1,21 +1,18 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { Text } from "../../components/common/Text";
 
-import SignOutButton from "../../components/SignOutButton";
 import navigationService, {
   MainNavigatorParamList,
   mainRoutes,
 } from "../../navigation/NavigationService";
 import useDiscoverPresenter from "../../navigation/discoverPresenter";
 import { useDiscoverStore } from "../../stores/DiscoverStore/DiscoverStore";
-import Button from "../../components/common/Button";
 import styled from "styled-components/native";
 import { Image } from "react-native";
 import { ScreenSize } from "../../model/types";
-import { useAuthStore } from "../../stores/AuthStore/AuthStore";
 
 export type DiscoverRoutingProps = StackScreenProps<
   MainNavigatorParamList,

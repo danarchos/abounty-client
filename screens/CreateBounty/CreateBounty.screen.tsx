@@ -1,16 +1,8 @@
-import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
 import { Text } from "../../components/common/Text";
-import React, { FC, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
-import QRCode from "react-qr-code";
+import React, { FC } from "react";
 import { TextInput } from "react-native-paper";
 
-import SignOutButton from "../../components/SignOutButton";
-import {
-  MainNavigatorParamList,
-  mainRoutes,
-} from "../../navigation/NavigationService";
 import Button from "../../components/common/Button";
 import useCreateBountyPresenter from "./createBountyPresenter";
 import styled from "styled-components/native";
@@ -53,7 +45,6 @@ const CreateBounty: FC = () => {
     setTags,
     tagString,
     error,
-    handleStepThree,
   } = useCreateBountyPresenter();
   return (
     <Container>
@@ -150,19 +141,3 @@ const CreateBounty: FC = () => {
 };
 
 export default observer(CreateBounty);
-
-const styles = StyleSheet.create({
-  bountyContainer: {
-    borderWidth: 1,
-    padding: 20,
-  },
-  pageContainer: {
-    marginHorizontal: 45,
-    marginVertical: 20,
-  },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-});

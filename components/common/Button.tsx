@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { Button as PaperButton } from "react-native-paper";
 import styled from "styled-components/native";
 
@@ -9,9 +9,14 @@ const StyledPaperButton = styled(PaperButton)`
   background-color: black;
 `;
 
+const ButtonContainer = styled.View`
+  max-width: 200px;
+  margin: auto;
+`;
+
 const Button: FC<PaperButtonProps> = ({ children, ...props }) => {
   return (
-    <View style={styles.root}>
+    <ButtonContainer>
       <StyledPaperButton
         {...props}
         mode="contained"
@@ -19,17 +24,13 @@ const Button: FC<PaperButtonProps> = ({ children, ...props }) => {
       >
         {children}
       </StyledPaperButton>
-    </View>
+    </ButtonContainer>
   );
 };
 
 export default Button;
 
 const styles = StyleSheet.create({
-  root: {
-    maxWidth: 200,
-    margin: "auto",
-  },
   buttonLabel: {
     color: "white",
     fontFamily: "Rubik",

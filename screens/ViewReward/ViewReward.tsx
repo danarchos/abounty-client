@@ -3,7 +3,7 @@ import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { RouteProp } from "@react-navigation/native";
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
-import { View, StyleSheet, Platform, Image } from "react-native";
+import { View } from "react-native";
 import QRCode from "react-qr-code";
 import {
   MainNavigatorParamList,
