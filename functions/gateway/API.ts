@@ -63,14 +63,11 @@ class API {
 
   public async getRewards(username: string) {
     const response = await axios.get(`${this.apiUrl}/rewards/${username}`);
-    console.log("called get rewards");
     return response;
   }
 
   public async getReward(id: string) {
-    console.log("api get reward");
     const response = await axios.get(`${this.apiUrl}/reward/${id}`);
-    console.log("called get reward");
     return response;
   }
 

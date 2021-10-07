@@ -43,7 +43,6 @@ class BountyPresenter {
   };
 
   @action public setTags = (tags: string) => {
-    console.log("called set tags");
     this.tagString = tags;
     const array = this.tagString.split(" ");
     if (array.length > 1) {
@@ -97,10 +96,7 @@ class BountyPresenter {
       this.error = "There is a limit of 2 hashtags";
       return;
     }
-    console.log(
-      "username",
-      this.authStore.currentUser.user_metadata.user_name.toLowerCase()
-    );
+
     const response = await this.discoverStore.createBounty({
       subject: this.subject,
       description: this.description,
@@ -116,16 +112,6 @@ class BountyPresenter {
       navigationService.navigate(mainRoutes.Discover);
     }
   };
-
-  // @action public handleStepThree = async () => {
-  //   const response = await this.bountyStore.createInvoice(bountyId);
-  //   if (response) {
-  //     runInAction(() => {
-  //       this.invoiceQR = { ...response.data, bountyId };
-  //       console.log({ response });
-  //     });dexq2  ``
-  //   }
-  // }
 }
 
 const useCreateBountyPresenter = () =>

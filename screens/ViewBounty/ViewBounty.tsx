@@ -119,8 +119,6 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
 
   const [size] = useScreenSize();
 
-  console.log({ speakers });
-
   return (
     <Container size={size}>
       <FlexContainer>
@@ -168,17 +166,10 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
               />
               <SpeakerInfo>
                 <Main>
-                  <Text
-                    // color={item.confirmed ? "white" : "black"}
-                    weight="bold"
-                    gutterBottom={3}
-                  >
+                  <Text weight="bold" gutterBottom={3}>
                     {item.name}{" "}
                   </Text>
-                  <StyledText
-                    // color={item.confirmed ? "white" : "black"}
-                    size="xsmall"
-                  >
+                  <StyledText size="xsmall">
                     {" "}
                     @{item.username.toLowerCase()}
                   </StyledText>

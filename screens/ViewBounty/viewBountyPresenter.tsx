@@ -45,7 +45,6 @@ class ViewBountyPresenter {
     if (response) {
       runInAction(() => {
         this.invoiceQR = { ...response.data, bountyId };
-        console.log({ response });
       });
     }
   };
@@ -66,7 +65,6 @@ class ViewBountyPresenter {
 
   @action public expireBounty = async (bountyId: string) => {
     const response = this.bountyStore.expireBounty(bountyId);
-    console.log({ response });
   };
 
   @computed get isCurrentUserWanted() {

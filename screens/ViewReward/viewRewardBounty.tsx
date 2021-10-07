@@ -55,7 +55,6 @@ class ViewRewardPresenter {
   @action public handleWithdraw = async () => {
     const response = await this.rewardStore.getWithdrawRequest();
     this.withdrawRequest = response.data.withdrawRequest;
-    console.log({ response });
   };
 }
 
