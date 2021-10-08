@@ -42,6 +42,24 @@ const Main = styled.View`
   align-items: center;
 `;
 
+const SpeakerImgs = styled.View`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const Balance = styled.View`
+  flex: 1%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const Subject = styled.View`
+  flex: 5;
+`;
+
 const Discover: FC<IDiscoverScreenProps> = () => {
   const { getAllBounties } = useDiscoverPresenter();
   const { allBounties } = useDiscoverStore();
@@ -64,20 +82,13 @@ const Discover: FC<IDiscoverScreenProps> = () => {
           }
         >
           <Main key={item.id}>
-            <View style={{ flex: 5 }}>
+            <Subject>
               <Text capitalise textStyle="display">
                 {item.subject}
               </Text>
-            </View>
+            </Subject>
 
-            <View
-              style={{
-                flex: 1,
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-end",
-              }}
-            >
+            <SpeakerImgs>
               {item.speakers.map((item, index) => (
                 <Image
                   style={{
@@ -93,17 +104,10 @@ const Discover: FC<IDiscoverScreenProps> = () => {
                   source={{ uri: item.profile_image_url }}
                 />
               ))}
-            </View>
-            <View
-              style={{
-                flex: 1,
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-end",
-              }}
-            >
+            </SpeakerImgs>
+            <Balance>
               <Text size="small">{item.balance ? item.balance : 0}</Text>
-            </View>
+            </Balance>
           </Main>
           <View>
             <Text truncate size="small">

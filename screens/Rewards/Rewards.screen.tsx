@@ -32,6 +32,24 @@ const Main = styled.View`
   align-items: center;
 `;
 
+const Subject = styled.View`
+  flex: 5;
+`;
+
+const ImageContainer = styled.View`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const Balance = styled.View`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
 const Rewards: FC = () => {
   const { getRewards, rewards } = useRewardStore();
   const { currentUser } = useAuthStore();
@@ -41,12 +59,7 @@ const Rewards: FC = () => {
   }, [currentUser]);
 
   return (
-    <View
-      style={{
-        padding: 50,
-        display: "flex",
-      }}
-    >
+    <Container>
       <Text textStyle="secondary" size="small" weight="bold" gutterBottom={10}>
         Rewards
       </Text>
@@ -59,20 +72,13 @@ const Rewards: FC = () => {
             }
           >
             <Main key={item.id}>
-              <View style={{ flex: 5 }}>
+              <Subject>
                 <Text capitalise textStyle="display">
                   {item.subject}
                 </Text>
-              </View>
+              </Subject>
 
-              <View
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                }}
-              >
+              <ImageContainer>
                 {item.speakers.map((item, index) => (
                   <Image
                     style={{
@@ -88,17 +94,10 @@ const Rewards: FC = () => {
                     source={{ uri: item.profile_image_url }}
                   />
                 ))}
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
-                }}
-              >
+              </ImageContainer>
+              <Balance>
                 <Text size="small">{item.balance ? item.balance : 0}</Text>
-              </View>
+              </Balance>
             </Main>
             <View>
               <Text truncate size="small">
@@ -107,7 +106,7 @@ const Rewards: FC = () => {
             </View>
           </BountyContainer>
         ))}
-    </View>
+    </Container>
   );
 };
 

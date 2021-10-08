@@ -23,7 +23,6 @@ type IViewBountyScreenProps = {
 const Container = styled.View<{ size?: ScreenSize }>`
   padding: ${({ size }) =>
     size === ScreenSize.desktop ? "100px 200px" : "0px"};
-  /* height: 100%; */
   display: flex;
   flex: 1;
 `;
@@ -88,8 +87,14 @@ const FlexContainer = styled.View`
   flex-direction: row;
 `;
 
-const StyledText = styled(Text)``;
+const Metadata = styled.View`
+  margin-right: 60;
+  flex: 0.65;
+`;
 
+const Reward = styled.View`
+  flex: 0.35;
+`;
 const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
   const { listenForPayments, removeListener, updateSpeaker } =
     useViewBountyPresenter();
@@ -120,7 +125,7 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
   return (
     <Container size={size}>
       <FlexContainer>
-        <View style={{ marginRight: 60, flex: 0.65 }}>
+        <Metadata>
           <Text gutterBottom={8} size="xsmall" textStyle="secondary">
             SUBJECT
           </Text>
@@ -131,8 +136,8 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
             DESCRIPTION
           </Text>
           <Text gutterBottom={25}>{description}</Text>
-        </View>
-        <View style={{ flex: 0.35 }}>
+        </Metadata>
+        <Reward>
           <Text gutterBottom={8} size="xsmall" textStyle="secondary">
             REWARD
           </Text>
@@ -146,7 +151,7 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
               />
             )}
           </NumberContainer>
-        </View>
+        </Reward>
       </FlexContainer>
 
       <Text gutterBottom={8} size="xsmall" textStyle="secondary">
@@ -165,10 +170,7 @@ const ViewBounty: FC<IViewBountyScreenProps> = ({ route }) => {
                   <Text weight="bold" gutterBottom={3}>
                     {item.name}{" "}
                   </Text>
-                  <StyledText size="xsmall">
-                    {" "}
-                    @{item.username.toLowerCase()}
-                  </StyledText>
+                  <Text size="xsmall"> @{item.username.toLowerCase()}</Text>
                 </Main>
                 <Text size="small">{item.description}</Text>
               </SpeakerInfo>

@@ -89,7 +89,14 @@ const FlexContainer = styled.View`
   flex-direction: row;
 `;
 
-const StyledText = styled(Text)``;
+const Metadata = styled.View`
+  margin-right: 60px;
+  flex: 0.65;
+`;
+
+const Reward = styled.View`
+  flex: 0.35;
+`;
 
 const ViewReward: FC<IViewRewardScreenProps> = ({ route }) => {
   const { initialiseViewReward, subject, handleWithdraw, withdrawRequest } =
@@ -104,7 +111,7 @@ const ViewReward: FC<IViewRewardScreenProps> = ({ route }) => {
   return (
     <Container size={size}>
       <FlexContainer>
-        <View style={{ marginRight: 60, flex: 0.65 }}>
+        <Metadata>
           <Text gutterBottom={8} size="xsmall" textStyle="secondary">
             SUBJECT
           </Text>
@@ -114,28 +121,14 @@ const ViewReward: FC<IViewRewardScreenProps> = ({ route }) => {
           <Text gutterBottom={8} size="xsmall" textStyle="secondary">
             DESCRIPTION
           </Text>
-          {/* <Text gutterBottom={25}>{description}</Text> */}
-        </View>
+        </Metadata>
 
-        <View style={{ flex: 0.35 }}>
+        <Reward>
           <Text gutterBottom={8} size="xsmall" textStyle="secondary">
             REWARD
           </Text>
           <Button onPress={handleWithdraw}>Withdraw</Button>
-
-          {/* <NumberContainer>
-            {Platform.OS === "web" && (
-              <StyledAnimateNumber
-                value={!balance ? 0 : balance}
-                // interval = base number of intervals
-                interval={40}
-                // steps = frame number
-                steps={45}
-                formatter={(val: string) => parseFloat(val).toFixed(0)}
-              />
-            )}
-          </NumberContainer> */}
-        </View>
+        </Reward>
       </FlexContainer>
       {withdrawRequest && <QRCode value={withdrawRequest} />}
     </Container>
