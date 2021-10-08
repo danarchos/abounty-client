@@ -17,13 +17,11 @@ class RewardStore {
   @observable rewards: Reward[] = [];
 
   @action public getRewards = async () => {
-    console.log(this.authStore.currentUser);
     if (this.authStore.currentUser) {
       const response = await API.getRewards(
         this.authStore.currentUser.user_metadata.user_name.toLowerCase()
       );
       this.rewards = response.data;
-      console.log(this.rewards);
     }
   };
 
