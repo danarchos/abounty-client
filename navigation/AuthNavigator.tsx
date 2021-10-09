@@ -11,7 +11,6 @@ import theme from "../styles/theme/navigationTheme";
 import { observer } from "mobx-react-lite";
 
 import LoginScreen from "../screens/LoginScreen";
-import SignUpScreen from "../screens/SignUpScreen";
 
 const Stack = createStackNavigator<AuthNavigatorParamList>();
 

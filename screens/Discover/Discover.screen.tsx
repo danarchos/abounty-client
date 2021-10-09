@@ -1,11 +1,9 @@
-import { StackScreenProps } from "@react-navigation/stack";
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
 import { View } from "react-native";
 import { Text } from "../../components/common/Text";
 
 import navigationService, {
-  MainNavigatorParamList,
   mainRoutes,
 } from "../../navigation/NavigationService";
 import useDiscoverPresenter from "../../navigation/discoverPresenter";
@@ -13,13 +11,6 @@ import { useDiscoverStore } from "../../stores/DiscoverStore/DiscoverStore";
 import styled from "styled-components/native";
 import { ScreenSize } from "../../model/types";
 import UserThumbnailItem from "../../components/common/UserThumbnailItem";
-
-export type DiscoverRoutingProps = StackScreenProps<
-  MainNavigatorParamList,
-  mainRoutes.Discover
->;
-
-interface IDiscoverScreenProps extends DiscoverRoutingProps {}
 
 const BountyContainer = styled.TouchableOpacity`
   border-bottom-width: 1px;
@@ -60,7 +51,7 @@ const Subject = styled.View`
   flex: 5;
 `;
 
-const Discover: FC<IDiscoverScreenProps> = () => {
+const Discover: FC = () => {
   const { getAllBounties } = useDiscoverPresenter();
   const { allBounties } = useDiscoverStore();
 

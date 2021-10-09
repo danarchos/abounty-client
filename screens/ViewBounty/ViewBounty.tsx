@@ -1,7 +1,7 @@
 import { RouteProp } from "@react-navigation/native";
 import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
-import { View, Platform, Image } from "react-native";
+import { Platform, Image } from "react-native";
 import QRCode from "react-qr-code";
 import {
   MainNavigatorParamList,

@@ -17,7 +17,7 @@ const Container = styled.View`
 `;
 
 const SignUpScreen = observer(() => {
-  const { setEmail, email, password, setPassword, performSignUp, loginError } =
+  const { setEmail, email, password, setPassword, performSignUp } =
     useAuthPresenter();
 
   return (
