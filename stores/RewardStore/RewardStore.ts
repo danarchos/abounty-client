@@ -1,5 +1,5 @@
 import { inject, injectable, postConstruct } from "inversify";
-import { observable, action, makeAutoObservable, runInAction } from "mobx";
+import { observable, action, makeAutoObservable } from "mobx";
 import { Reward } from "../../model/types";
 import { useClassStore } from "../../utils/useClassStore";
 import { getRootContainer } from "../../config/ioc/root";
