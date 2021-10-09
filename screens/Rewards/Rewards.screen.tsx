@@ -5,11 +5,11 @@ import { Text } from "../../components/common/Text";
 import { useRewardStore } from "../../stores/RewardStore/RewardStore";
 import styled from "styled-components/native";
 import { ScreenSize } from "../../model/types";
-import { Image } from "react-native";
 import { useAuthStore } from "../../stores/AuthStore/AuthStore";
 import navigationService, {
   mainRoutes,
 } from "../../navigation/NavigationService";
+import UserThumbnailItem from "../../components/common/UserThumbnailItem";
 
 const BountyContainer = styled.TouchableOpacity`
   border-bottom-width: 1px;
@@ -80,18 +80,10 @@ const Rewards: FC = () => {
 
               <ImageContainer>
                 {item.speakers.map((item, index) => (
-                  <Image
-                    style={{
-                      borderWidth: 2,
-                      position: "relative",
-                      left: index * -15,
-                      height: 45,
-                      width: 45,
-                      marginRight: 5,
-                      borderRadius: 50,
-                      alignItems: "center",
-                    }}
-                    source={{ uri: item.profile_image_url }}
+                  <UserThumbnailItem
+                    key={item.username}
+                    source={item.profile_image_url}
+                    leftPosition={index * -15}
                   />
                 ))}
               </ImageContainer>

@@ -11,12 +11,11 @@ import { SupabaseWrapper } from "./config/SupabaseInit";
 import styled from "styled-components/native";
 
 const AppContainer = styled.View`
-  background-color: brown;
   height: 100vh;
   width: 100vw;
 `;
 
-export default function App() {
+const App = () => {
   const [loaded] = Font.useFonts({
     Rye: require("./assets/fonts/Rye-Regular.ttf"),
     Rubik: require("./assets/fonts/Rubik.ttf"),
@@ -34,4 +33,6 @@ export default function App() {
       </SafeAreaProvider>
     </SupabaseWrapper>
   );
-}
+};
+
+export default App;

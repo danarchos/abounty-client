@@ -11,8 +11,8 @@ import navigationService, {
 import useDiscoverPresenter from "../../navigation/discoverPresenter";
 import { useDiscoverStore } from "../../stores/DiscoverStore/DiscoverStore";
 import styled from "styled-components/native";
-import { Image } from "react-native";
 import { ScreenSize } from "../../model/types";
+import UserThumbnailItem from "../../components/common/UserThumbnailItem";
 
 export type DiscoverRoutingProps = StackScreenProps<
   MainNavigatorParamList,
@@ -90,18 +90,10 @@ const Discover: FC<IDiscoverScreenProps> = () => {
 
             <SpeakerImgs>
               {item.speakers.map((item, index) => (
-                <Image
-                  style={{
-                    borderWidth: 2,
-                    position: "relative",
-                    left: index * -15,
-                    height: 45,
-                    width: 45,
-                    marginRight: 5,
-                    borderRadius: 50,
-                    alignItems: "center",
-                  }}
-                  source={{ uri: item.profile_image_url }}
+                <UserThumbnailItem
+                  key={item.username}
+                  source={item.profile_image_url}
+                  leftPosition={index * -15}
                 />
               ))}
             </SpeakerImgs>
