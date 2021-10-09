@@ -33,42 +33,70 @@ class API {
   }
 
   public async getWithdrawRequest() {
-    const response = await axios.get(`${this.apiUrl}/withdraw-request`);
-    return response;
+    try {
+      const response = await axios.get(`${this.apiUrl}/withdraw-request`);
+      return response;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   public async usernames(speakers: string) {
-    const response = await axios.get(
-      `${this.apiUrl}/usernames?users=${speakers}`
-    );
-    return response;
+    try {
+      const response = await axios.get(
+        `${this.apiUrl}/usernames?users=${speakers}`
+      );
+      return response;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   public async getAllBounties() {
-    const response = await axios.get(`${this.apiUrl}/live-bounties`);
-    return response;
+    try {
+      const response = await axios.get(`${this.apiUrl}/live-bounties`);
+      return response;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   public async getBounty(id: string) {
-    const response = await axios.get(`${this.apiUrl}/bounty/${id}`);
-    return response;
+    try {
+      const response = await axios.get(`${this.apiUrl}/bounty/${id}`);
+      return response;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   public async expireBounty(id: string) {
-    const response = await axios.post(`${this.apiUrl}/expire-bounty`, {
-      id,
-    });
-    return response;
+    try {
+      const response = await axios.post(`${this.apiUrl}/expire-bounty`, {
+        id,
+      });
+      return response;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   public async getRewards(username: string) {
-    const response = await axios.get(`${this.apiUrl}/rewards/${username}`);
-    return response;
+    try {
+      const response = await axios.get(`${this.apiUrl}/rewards/${username}`);
+      return response;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   public async getReward(id: string) {
-    const response = await axios.get(`${this.apiUrl}/reward/${id}`);
-    return response;
+    try {
+      const response = await axios.get(`${this.apiUrl}/reward/${id}`);
+      return response;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   public async updateSpeaker(
@@ -76,12 +104,16 @@ class API {
     userId: string,
     bountyId: string
   ) {
-    const response = await axios.post(`${this.apiUrl}/update-speaker`, {
-      speakers,
-      userId,
-      bountyId,
-    });
-    return response;
+    try {
+      const response = await axios.post(`${this.apiUrl}/update-speaker`, {
+        speakers,
+        userId,
+        bountyId,
+      });
+      return response;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 
   public async createBounty({
@@ -92,15 +124,19 @@ class API {
     description,
     active,
   }: Bounty) {
-    const response = await axios.post(`${this.apiUrl}/create-bounty`, {
-      description,
-      active,
-      subject,
-      speakers,
-      tags,
-      user,
-    });
-    return response;
+    try {
+      const response = await axios.post(`${this.apiUrl}/create-bounty`, {
+        description,
+        active,
+        subject,
+        speakers,
+        tags,
+        user,
+      });
+      return response;
+    } catch (error) {
+      console.log({ error });
+    }
   }
 }
 
