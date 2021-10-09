@@ -1,5 +1,4 @@
 import {
-  signUp,
   signOut,
   signIn,
   updateCurrentUser,
@@ -57,11 +56,11 @@ class AuthStore {
     this.hasOnboarded = value;
   };
 
-  fetchCurrentUser = async () => {
+  @action public fetchCurrentUser = async () => {
     return await fetchCurrentUser();
   };
 
-  updateUserName = async (name: string) => {
+  @action public updateUserName = async (name: string) => {
     const response = await updateCurrentUser(name);
     const { data, error } = response ?? {};
     if (error) {
@@ -74,23 +73,8 @@ class AuthStore {
     return data;
   };
 
-  signUp = async (email: string, password: string) => {
-    const response = await signUp(email, password);
-    const { session, error } = response;
-
-    if (error) {
-      console.log(error);
-      return null;
-    } else {
-      // 'user' is fetched using a different query
-      this.setAuthData({ user: null, session });
-      this.setCurrentUserDetails();
-      return true;
-    }
-  };
-
-  signIn = async (email: string, password: string) => {
-    const response = await signIn(email, password);
+  @action public signIn = async () => {
+    const response = await signIn();
     const { user, session, error } = response;
 
     if (error) {
@@ -106,7 +90,7 @@ class AuthStore {
     }
   };
 
-  setCurrentUserDetails = async () => {
+  @action public setCurrentUserDetails = async () => {
     const currentUser = await this.fetchCurrentUser();
     this.setAuthData({ ...this.AuthData, user: currentUser });
     return currentUser;
