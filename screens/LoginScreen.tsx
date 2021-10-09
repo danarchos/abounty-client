@@ -22,7 +22,9 @@ const LoginScreen = observer(() => {
           await performSignIn();
         }}
       >
-        <Text>Login with twitter</Text>
+        <Text size="xsmall" color="white">
+          Login with twitter
+        </Text>
       </Button>
       {loginError && (
         <Text color="red">
