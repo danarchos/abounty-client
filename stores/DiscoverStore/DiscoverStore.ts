@@ -1,4 +1,4 @@
-import { inject, injectable, postConstruct } from "inversify";
+import { injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import { Bounty } from "../../model/types";
 import { useClassStore } from "../../utils/useClassStore";
@@ -24,14 +24,6 @@ class DiscoverStore {
     return response?.data;
   };
 
-  @action public listenToBounty = async () => {
-    // listen to the currently viewed  bounty
-  };
-
-  @action public removeListerForBounty = async () => {
-    // undo listen to the currently viewed  bounty
-  };
-
   @action public createBounty = async ({
     description,
     subject,
@@ -48,7 +40,6 @@ class DiscoverStore {
     });
 
     if (response) {
-      // optimise this to get back all bounties in one go
       this.getAllBounties();
     }
     return response;

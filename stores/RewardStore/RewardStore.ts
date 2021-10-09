@@ -21,13 +21,13 @@ class RewardStore {
       const response = await API.getRewards(
         this.authStore.currentUser.user_metadata.user_name.toLowerCase()
       );
-      this.rewards = response.data;
+      this.rewards = response?.data;
     }
   };
 
   @action public getReward = async (id: string) => {
     const response = await API.getReward(id);
-    return response.data;
+    return response?.data;
   };
 
   @action public getWithdrawRequest = async () => {

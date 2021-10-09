@@ -1,18 +1,8 @@
 import { inject, injectable, postConstruct } from "inversify";
-import {
-  observable,
-  action,
-  makeAutoObservable,
-  runInAction,
-  computed,
-} from "mobx";
+import { observable, action, makeAutoObservable } from "mobx";
 import { getRootContainer } from "../../config/ioc/root";
-import API from "../../functions/gateway/API";
 import { Speaker } from "../../model/types";
-import AuthStore from "../../stores/AuthStore/AuthStore";
-import BountyStore from "../../stores/BountyStore/BountyStore";
 
-import DiscoverStore from "../../stores/DiscoverStore/DiscoverStore";
 import RewardStore from "../../stores/RewardStore/RewardStore";
 import { useClassStore } from "../../utils/useClassStore";
 
@@ -54,7 +44,7 @@ class ViewRewardPresenter {
 
   @action public handleWithdraw = async () => {
     const response = await this.rewardStore.getWithdrawRequest();
-    this.withdrawRequest = response.data.withdrawRequest;
+    this.withdrawRequest = response?.data.withdrawRequest;
   };
 }
 
