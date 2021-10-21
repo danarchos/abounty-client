@@ -1,6 +1,6 @@
 import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
-import { getRootContainer } from "../../config/ioc/root";
+import { getRootContainer } from "../../config/inversify.config";
 import { Speaker } from "../../model/types";
 import navigationService, {
   mainRoutes,

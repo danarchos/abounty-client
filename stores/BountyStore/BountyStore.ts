@@ -1,7 +1,7 @@
 import { inject, injectable, postConstruct } from "inversify";
 import { action, makeAutoObservable } from "mobx";
 import { useClassStore } from "../../utils/useClassStore";
-import { getRootContainer } from "../../config/ioc/root";
+import { getRootContainer } from "../../config/inversify.config";
 import API from "../../functions/gateway/API";
 import { Speaker } from "../../model/types";
 import AuthStore from "../AuthStore/AuthStore";

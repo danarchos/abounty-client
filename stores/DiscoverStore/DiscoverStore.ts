@@ -2,7 +2,7 @@ import { injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import { Bounty } from "../../model/types";
 import { useClassStore } from "../../utils/useClassStore";
-import { getRootContainer } from "../../config/ioc/root";
+import { getRootContainer } from "../../config/inversify.config";
 import API from "../../functions/gateway/API";
 
 @injectable()

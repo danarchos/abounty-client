@@ -1,6 +1,6 @@
 import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable } from "mobx";
-import { getRootContainer } from "../../config/ioc/root";
+import { getRootContainer } from "../../config/inversify.config";
 import { Speaker } from "../../model/types";
 
 import RewardStore from "../../stores/RewardStore/RewardStore";

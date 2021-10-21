@@ -1,4 +1,4 @@
-import { getRootContainer } from "../config/ioc/root";
+import { getRootContainer } from "../config/inversify.config";
 import { useClassStore } from "../utils/useClassStore";
 
 import { inject, injectable, postConstruct } from "inversify";

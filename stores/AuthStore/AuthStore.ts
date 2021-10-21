@@ -14,7 +14,7 @@ import navigationService, {
 import { definitions } from "../../types/supabase";
 import { Session } from "@supabase/supabase-js";
 import { useClassStore } from "../../utils/useClassStore";
-import { getRootContainer } from "../../config/ioc/root";
+import { getRootContainer } from "../../config/inversify.config";
 
 export type AuthData = {
   user: definitions["users"] | null | undefined;
