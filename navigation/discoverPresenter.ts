@@ -3,7 +3,6 @@ import { useClassStore } from "../utils/useClassStore";
 
 import { inject, injectable, postConstruct } from "inversify";
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
-import AuthStore from "../stores/AuthStore/AuthStore";
 import DiscoverStore from "../stores/DiscoverStore/DiscoverStore";
 
 @injectable()

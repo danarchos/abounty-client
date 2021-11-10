@@ -11,7 +11,7 @@ import styled from "styled-components/native";
 import { Text } from "../../components/common/Text";
 import { ScreenSize } from "../../model/types";
 import { useScreenSize } from "../../hooks/useScreenSize";
-import useViewRewardPresenter from "./viewRewardBountyPresenter";
+import useViewRewardPresenter from "./ViewRewardBountyPresenter";
 
 type IViewRewardScreenProps = {
   route: RouteProp<MainNavigatorParamList, mainRoutes.ViewReward>;

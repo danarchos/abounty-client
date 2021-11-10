@@ -79,6 +79,9 @@ class BountyPresenter {
     this.updateStep(this.step + 1);
   };
 
+  @action public incrementStep = () => this.step += 1;
+  @action public decrementStep = () => this.step += 1;
+
   @action public updateStep = (newStep: number) => {
     this.step = newStep;
   };

@@ -7,7 +7,7 @@ import { MenuOptions } from "../navigation/MenuOptions";
 import navigationService, { mainRoutes } from "../navigation/NavigationService";
 import LogoButton from "./LogoButton";
 import Button from "./common/Button";
-import useAuthPresenter from "../screens/authPresenter";
+import useAuthPresenter from "../screens/AuthPresenter";
 
 const Container = styled.View`
   background-color: #e5e1db;
@@ -40,7 +40,7 @@ const Drawer: FC<DrawerContentComponentProps> = ({ state }) => {
                 gutterBottom={10}
                 weight={
                   (name === "Discover" && currentRoute === "Main") ||
-                  name === currentRoute
+                    name === currentRoute
                     ? "bold"
                     : "regular"
                 }

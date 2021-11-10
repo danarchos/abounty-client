@@ -1,9 +1,10 @@
 import Button from "../components/common/Button";
 import { observer } from "mobx-react-lite";
 import React from "react";
-import useAuthPresenter from "./authPresenter";
+
 import styled from "styled-components/native";
 import { Text } from "../components/common/Text";
+import useAuthPresenter from "./AuthPresenter";
 
 const Container = styled.View`
   flex: 1;

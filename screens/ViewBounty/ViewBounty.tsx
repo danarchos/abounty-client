@@ -8,13 +8,13 @@ import {
   mainRoutes,
 } from "../../navigation/NavigationService";
 import Button from "../../components/common/Button";
-import useViewBountyPresenter from "./viewBountyPresenter";
 import styled from "styled-components/native";
 import { Text } from "../../components/common/Text";
 import AnimateNumber from "react-native-animate-number";
 import { ScreenSize } from "../../model/types";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useAuthStore } from "../../stores/AuthStore/AuthStore";
+import useViewBountyPresenter from "./viewBountyPresenter";
 
 type IViewBountyScreenProps = {
   route: RouteProp<MainNavigatorParamList, mainRoutes.ViewBounty>;

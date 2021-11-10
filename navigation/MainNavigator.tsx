@@ -14,7 +14,7 @@ import navigationService, {
 } from "./NavigationService";
 import DrawerComponent from "../components/Drawer";
 import { useSupabase } from "use-supabase";
-import useAuthPresenter from "../screens/authPresenter";
+import useAuthPresenter from "../screens/AuthPresenter";
 import ViewBounty from "../screens/ViewBounty/ViewBounty";
 import ViewReward from "../screens/ViewReward/ViewReward";
 
